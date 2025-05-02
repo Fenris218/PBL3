@@ -1,21 +1,50 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Recover";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-@if (TempData["Error"] != null)
-{
-    <div style="color: red; font-weight: bold;">@TempData["Error"]</div>
-}
-@if (ViewBag.Error != null)
-{
-    <div style="color: red; font-weight: bold; margin-bottom: 10px;">
-        @ViewBag.Error
-    </div>
-}
+<!-- Page Content -->
+<div class="row g-0 justify-content-center bg-body">
+    <div class="hero-static col-sm-8 col-md-6 col-xl-4 d-flex align-items-center p-2 px-sm-0">
+        <!-- Recover Block -->
+        <div class="block block-rounded w-100 mb-0 overflow-hidden shadow-sm border">
+            <div class="block-content block-content-full px-lg-5 px-xl-6 py-4 py-md-5 py-lg-6 bg-body-extra-light">
+                <!-- Header -->
+                <div class="mb-2 text-center">
+                    <div class="link-fx fw-bold fs-1">
+                        <span class="text-primary">Khôi phục</span>
+                    </div>
+                    <p class="text-uppercase fw-bold fs-sm text-dark">Tìm lại tài khoản</p>
+                    <p class="fw-bold fs-sm text-muted">Nhập email để nhận mã xác thực</p>
+                </div>
+                <!-- END Header -->
+                <!-- Error Messages -->
+                @if (TempData["Error"] != null)
+                {
+                    <div class="text-danger text-center fw-bold mb-3">@TempData["Error"]</div>
+                }
+                @if (ViewBag.Error != null)
+                {
+                    <div class="text-danger text-center fw-bold mb-3">@ViewBag.Error</div>
+                }
 
-<form method="post" action="/Admin/Authentication/Recover">
-    <input type="email" name="email" required placeholder="Nhập email của bạn" />
-    <button type="submit">Gửi mã xác nhận</button>
-</form>
+                <!-- Recover Form -->
+                <form method="post" action="/Admin/Authentication/Recover">
+                    <div class="mb-4">
+                        <div class="input-group input-group-lg">
+                            <input type="email" class="form-control" name="email" required placeholder="Nhập email của bạn" />
+                        </div>
+                    </div>
+                    <div class="text-center mb-4">
+                        <button type="submit" class="btn btn-hero btn-primary">
+                            Gửi mã xác nhận
+                        </button>
+                    </div>
+                </form>
+                <!-- END Recover Form -->
+            </div>
+        </div>
+        <!-- END Recover Block -->
+    </div>
+</div>
+<!-- END Page Content -->

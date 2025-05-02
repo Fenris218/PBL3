@@ -159,7 +159,7 @@ namespace PBL.Areas.Admin.Controllers
             db.SaveChanges();
 
             TempData["Success"] = "Đặt lại mật khẩu thành công. Vui lòng đăng nhập.";
-            return RedirectToAction("Login");
+            return View();
         }
 
 

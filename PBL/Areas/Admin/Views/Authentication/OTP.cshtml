@@ -3,16 +3,44 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Xác minh mã OTP</h2>
+<!-- Page Content -->
+<div class="row g-0 justify-content-center bg-body">
+    <div class="hero-static col-sm-8 col-md-6 col-xl-4 d-flex align-items-center p-2 px-sm-0">
+        <!-- OTP Block -->
+        <div class="block block-rounded w-100 mb-0 overflow-hidden shadow-sm border">
+            <div class="block-content block-content-full px-lg-5 px-xl-6 py-4 py-md-5 py-lg-6 bg-body-extra-light">
+                <!-- Header -->
+                <div class="mb-2 text-center">
+                    <div class="link-fx fw-bold fs-1">
+                        <span class="text-primary">OTP</span>
+                    </div>
+                    <p class="text-uppercase fw-bold fs-sm text-dark">Verification Code</p>
+                    <p class="fw-bold fs-sm text-muted">Chúng tôi đã gửi mã xác thực tới email của bạn</p>
+                </div>
+                <!-- END Header -->
+                <!-- OTP Form -->
+                @if (ViewBag.Error != null)
+                {
+                    <div class="text-danger text-center mb-3">@ViewBag.Error</div>
+                }
 
-@if (ViewBag.Error != null)
-{
-    <div style="color: red;">@ViewBag.Error</div>
-}
-
-<form method="post" action="/Admin/Authentication/Otp">
-    <input type="hidden" name="token" value="@ViewBag.Token" />
-    <label for="otp">Mã OTP:</label>
-    <input type="text" name="otp" required placeholder="Nhập mã OTP" />
-    <button type="submit">Xác minh</button>
-</form>
+                <form method="post" action="/Admin/Authentication/Otp">
+                    <input type="hidden" name="token" value="@ViewBag.Token" />
+                    <div class="mb-4">
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" name="otp" required placeholder="Nhập mã OTP" />
+                        </div>
+                    </div>
+                    <div class="text-center mb-4">
+                        <button type="submit" class="btn btn-hero btn-primary">
+                            Xác minh
+                        </button>
+                    </div>
+                </form>
+                <!-- END OTP Form -->
+            </div>
+        </div>
+        <!-- END OTP Block -->
+    </div>
+</div>
+<!-- END Page Content -->
