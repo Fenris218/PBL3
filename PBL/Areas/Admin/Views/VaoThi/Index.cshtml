@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Vào thi</h2>
+<h3 id="tenDeThi"></h3>
+
+<p>Thời gian còn lại: <span id="thoiGianConLai"></span></p>
+<div id="danhsachcauhoi">
+
+</div>
+<button id="nopBai">Nộp Bài</button>
+<div id="ketQua" style="display: none;">
+    <h3>Kết quả bài làm:</h3>
+    <p id="diemSo"></p>
+</div>
+
+<script>
+    $(document).ready(function () {
+        loadThongTinDeThi();
+        loadCauHoi();
+
+        $('#nopBai').click(function () {
+            tinhDiem();
+        });
+    });
+    function loadThongTinDeThi() {
+        $.ajax({
+            url: '/Admin/VaoThi/thongtindethi',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.code === 200) {
+                    var deThi = response.thongtindethi[0]; // Chỉ lấy đề thi đầu tiên
+                    $('#tenDeThi').text("Đề thi: " + deThi.tende);
+
+                    // Bắt đầu đếm ngược thời gian
+                    startCountdown(deThi.thoigianthi);
+                } else {
+                    alert(response.msg);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText);
+                alert('Có lỗi xảy ra khi tải thông tin đề thi.');
+            }
+        });
+    }
+
+    function startCountdown(minutes) {
+        var timeInSeconds = minutes * 60;
+        var timer = setInterval(function () {
+            var minutesLeft = Math.floor(timeInSeconds / 60);
+            var secondsLeft = timeInSeconds % 60;
+
+            // Hiển thị thời gian còn lại
+            $('#thoiGianConLai').text(minutesLeft + ":" + (secondsLeft < 10 ? "0" : "") + secondsLeft);
+
+            // Nếu hết giờ, tự động nộp bài
+            if (timeInSeconds <= 0) {
+                clearInterval(timer);
+                alert("Hết thời gian làm bài!");
+                tinhDiem();
+            }
+            timeInSeconds--;
+        }, 1000);
+    }
+    function loadCauHoi() {
+        $.ajax({
+            url: '/Admin/VaoThi/Dscauhoi',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response.code === 200) {
+                    var danhSachCauHoi = response.dscauhoidapan;
+                    sessionStorage.setItem('danhSachCauHoi', JSON.stringify(danhSachCauHoi)); // Lưu danh sách câu hỏi
+                    var html = '';
+                    var displayedQuestionIds = [];
+
+                    for (var i = 0; i < danhSachCauHoi.length; i++) {
+                        var cauHoi = danhSachCauHoi[i];
+
+                        if (displayedQuestionIds.indexOf(cauHoi.ID) === -1) {
+                            displayedQuestionIds.push(cauHoi.ID);
+
+                            html += '<div class="cauhoi">';
+                            html += '<h3>Câu ' + (displayedQuestionIds.length) + ': ' + cauHoi.noidung + '</h3>';
+                            html += '<ul class="dapan">';
+
+                            // Filter đáp án cho câu hỏi hiện tại (group by question ID)
+                            var dapAnCuaCauHoi = danhSachCauHoi.filter(function (d) {
+                                return d.ID === cauHoi.ID;
+                            });
+
+                            dapAnCuaCauHoi.forEach(function (dapan) {
+                                html += '<li>';
+                                html += '<label>';
+                                html += '<input type="radio" name="cauhoi_' + cauHoi.ID + '" value="' + dapan.ladapan + '">';
+                                html += dapan.noidungdapan;
+                                html += '</label>';
+                                html += '</li>';
+                            });
+
+                            html += '</ul>';
+                            html += '</div>';
+                        }
+                    }
+                    $('#danhsachcauhoi').html(html);
+                } else {
+                    alert(response.msg);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText);
+                alert('Có lỗi xảy ra khi tải câu hỏi.');
+            }
+        });
+    }
+
+    function tinhDiem() {
+        var diem = 0;
+
+        $('.cauhoi').each(function () {
+            var cauHoiDiv = $(this);
+            var cauHoiId = cauHoiDiv.find('ul.dapan input[type="radio"]').attr('name').replace('cauhoi_', '');
+            var selectedAnswer = cauHoiDiv.find('ul.dapan input[type="radio"]:checked').val();
+
+            console.log("Câu hỏi ID:", cauHoiId, "| Đáp án chọn:", selectedAnswer);
+
+            // Chuyển đổi selectedAnswer thành chữ thường để tránh lỗi so sánh
+            if (selectedAnswer !== undefined) {
+                selectedAnswer = selectedAnswer.trim().toLowerCase();
+            }
+
+            // Kiểm tra đáp án đúng
+            var correctAnswer = cauHoiDiv.find('ul.dapan input[type="radio"][value="true"]');
+
+            console.log("Đáp án đúng có tồn tại không?", correctAnswer.length > 0);
+
+            if (selectedAnswer === "true") { // So sánh với "true" chữ thường
+                diem++;
+            }
+        });
+
+        console.log("Tổng điểm:", diem);
+        $('#diemSo').text('Điểm của bạn: ' + diem);
+        $('#ketQua').show();
+    }
+</script>

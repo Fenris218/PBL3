@@ -1,0 +1,527 @@
+﻿
+@{
+    ViewBag.Title = "sua_de_thi";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var madethi = ViewBag.ID ?? 0;
+}
+
+<style>
+    #page-footer {
+        display: none
+    }
+</style>
+<div class="content" data-id="@madethi">
+    <form class="row g-0 flex-md-grow-1 form-taodethi">
+        <div class="col-md-4 col-lg-5 col-xl-3 order-md-1 bg-white">
+            <div class="content px-2">
+                <div class="d-md-none push">
+                    <button type="button" class="btn w-100 btn-alt-primary" data-toggle="class-toggle"
+                            data-target="#side-content" data-class="d-none">
+                        CẤU HÌNH
+                    </button>
+                </div>
+                <div id="side-content" class="d-none d-md-block push">
+                    <h3 class="fs-5">CẤU HÌNH</h3>
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="tudongsoande" name="tudongsoande" checked>
+                        <label class="form-check-label" for="tudongsoande">Tự động lấy từ ngân hàng đề</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="xemdiem" name="xemdiem">
+                        <label class="form-check-label" for="xemdiem">Xem điểm sau khi thi xong</label>
+                    </div>
+                    <div class="form-check form-switch mb-2 d-none">
+                        <input class="form-check-input" type="checkbox" id="xemda" name="xemda">
+                        <label class="form-check-label" for="xemda">Xem đáp án khi thi xong</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="xembailam" name="xembailam">
+                        <label class="form-check-label" for="xembailam">Xem bài làm khi thi xong</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="daocauhoi" name="daocauhoi">
+                        <label class="form-check-label" for="daocauhoi">Đảo câu hỏi</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="daodapan" name="daodapan">
+                        <label class="form-check-label" for="daodapan">Đảo đáp án</label>
+                    </div>
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="tudongnop" name="tudongnop">
+                        <label class="form-check-label" for="tudongnop">Tự động nộp bài khi chuyển tab</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 col-lg-7 col-xl-9 order-md-0">
+            <div class="content content-full">
+                <div class="block block-rounded form-tao-de">
+                    <div class="block-header block-header-default">
+                        <h3 class="block-title">@((ViewBag.Action == "create") ? "Tạo mới đề thi" : "Cập nhật đề thi")</h3>
+                    </div>
+                    <div class="block block-content">
+                        <div class="mb-4">
+                            <label class="form-label" for="name-exam">Tên đề kiểm tra</label>
+                            <input type="text" class="form-control" id="name-exam" name="name-exam"
+                                   placeholder="Nhập tên đề kiểm tra">
+                        </div>
+                        <div class="row mb-4">
+                            <label class="form-label" for="time-start">
+                                Thời gian bắt
+                                đầu
+                            </label>
+                            <div class="col-xl-6">
+                                <input type="text" class="js-flatpickr form-control" id="time-start" name="time-start"
+                                       data-enable-time="true" data-time_24hr="true" placeholder="Từ">
+                            </div>
+                            <div class="col-xl-6">
+                                <input type="text" class="js-flatpickr form-control" id="time-end" name="time-end"
+                                       data-enable-time="true" data-time_24hr="true" placeholder="Đến">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="input-group">
+                                <span class="input-group-text">Thời gian làm bài</span>
+                                <input type="number" class="form-control text-center" id="exam-time" name="exam-time"
+                                       placeholder="00">
+                                <span class="input-group-text">phút</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="block block-rounded border">
+                                <div class="block-header block-header-default">
+                                    <h3 class="block-title">Giao cho</h3>
+                                    <div class="block-option">
+                                        <select class="form-select" id="nhom-hp" name="nhom-hp"
+                                                style="width: 100%;">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="block-content pb-3">
+                                    <div class="row" id="list-group">
+                                        <div class="text-center fs-sm">
+                                            <img style="width:100px"
+                                                 src="@Url.Content("~/Assets/media/svg/empty_data.png")" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4 show-chap">
+                            <label class="form-label">Chương</label>
+                            <select class="js-select2 form-select" id="chuong" name="chuong" style="width: 100%;"
+                                    data-placeholder="Chọn nhiều chương..." multiple>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label class="form-label" for="coban">Số câu dễ</label>
+                                    <input type="number" class="form-control" name="coban" id="coban">
+                                </div>
+                                <div class="col-4">
+                                    <label class="form-label" for="trungbinh">Số câu trung bình</label>
+                                    <input type="number" class="form-control" name="trungbinh" id="trungbinh">
+                                </div>
+                                <div class="col-4">
+                                    <label class="form-label" for="kho">Số câu khó</label>
+                                    <input type="number" class="form-control" name="kho" id="kho">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            @if (ViewBag.Action == "create")
+                            {
+                                <button type="submit" class="btn btn-hero btn-primary" id="btn-add-test">
+                                    <i class="fa fa-fw fa-plus me-1"></i> Tạo đề
+                                </button>
+                            }
+                            else if (ViewBag.Action == "update")
+                            {
+                                <button type="submit" class="btn btn-hero btn-primary" id="btn-update-test">
+                                    <i class="fa fa-fw fa-plus me-1"></i> Cập nhật đề
+                                </button>
+                            }
+                            <a class="btn btn-hero btn-success" id="btn-update-quesoftest"><i class="fa fa-fw fa-pencil me-1"></i> Chỉnh sửa danh sách câu hỏi</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section scripts{
+    <script>
+        const made = $(".content").data("id");
+        console.log(made);
+        function dateIsValid(date) {
+            if (!date) return false;
+            if (typeof date === 'string' && date.startsWith('/Date(')) {
+                const timestampMatch = date.match(/\/Date\((\d+)\)\//);
+                if (!timestampMatch) return false;
+
+                const timestamp = parseInt(timestampMatch[1]);
+                return !isNaN(timestamp) && timestamp > 0;
+            }
+            const d = new Date(date);
+            return !isNaN(d.getTime());
+        }
+
+        function parseApiDate(dateString) {
+            if (typeof dateString === 'string' && dateString.startsWith('/Date(')) {
+                const timestamp = parseInt(dateString.replace(/\/Date\((\d+)\)\//, '$1'));
+                return new Date(timestamp);
+            }
+            return new Date(dateString);
+        }
+        Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
+        let groups = [];
+        function getToTalQuestionOfChapter(chuongs, monhoc, dokho) {
+            var result = 0;
+            $.ajax({
+                url: "/admin/dethi/GetSoLuongCauHoi",
+                type: "post",
+                async: false,
+                data: {
+                    chuongs: chuongs,
+                    monhoc: monhoc,
+                    dokho: dokho
+                },
+
+                success: function (data) {
+                    result = data.soluong;
+                },
+            });
+            return result;
+        }
+        Dashmix.onLoad(() =>
+            class {
+                static initValidation() {
+                    Dashmix.helpers("jq-validation"),
+                        $.validator.addMethod(
+                            "validTimeEnd",
+                            function (value, element) {
+                                var startTime = new Date($("#time-start").val());
+                                var currentTime = new Date();
+                                var endTime = new Date(value);
+                                return endTime > startTime && endTime > currentTime;
+                            },
+                            "Thời gian kết thúc phải lớn hơn thời gian bắt đầu và không bé hơn thời gian hiện tại"
+                        );
+
+                    $.validator.addMethod(
+                        "validTimeStart",
+                        function (value, element) {
+                            var startTime = new Date(value);
+                            var currentTime = new Date();
+                            return startTime > currentTime;
+                        },
+                        "Thời gian bắt đầu không được bé hơn thời gian hiện tại"
+                    );
+
+                    $.validator.addMethod(
+                        "validSoLuong",
+                        function (value, element, param) {
+                            let c = $("#chuong").val() === undefined ? "" : $("#chuong").val();
+                            let m =
+                                $("#nhom-hp").val() === ""
+                                    ? 0
+                                    : groups[$("#nhom-hp").val()].mamonhoc;
+                            let result =
+                                parseInt(getToTalQuestionOfChapter(c, m, param)) >= parseInt(value);
+                            return result;
+                        },
+                        "Số lượng câu hỏi không đủ"
+                    );
+
+                    $.validator.addMethod(
+                        "validThoigianthi",
+                        function (value, element, param) {
+                            let startTime = new Date($("#time-start").val());
+                            let endTime = new Date($("#time-end").val());
+                            return (
+                                startTime < endTime &&
+                                parseInt(getMinutesBetweenDates(startTime, endTime)) >=
+                                parseInt(value)
+                            );
+                        },
+                        "Thời gian làm bài không hợp lệ"
+                    );
+
+                    jQuery(".form-taodethi").validate({
+                        rules: {
+                            "name-exam": {
+                                required: true,
+                            },
+                            "time-start": {
+                                required: !0,
+                                validTimeStart: true,
+                            },
+                            "time-end": {
+                                required: !0,
+                                validTimeEnd: true,
+                            },
+                            "exam-time": {
+                                required: !0,
+                                digits: true,
+                                validThoigianthi: true,
+                            },
+                            "nhom-hp": {
+                                required: !0,
+                            },
+                            user_nhomquyen: {
+                                required: !0,
+                            },
+                            chuong: {
+                                required: !0,
+                            },
+                            coban: {
+                                required: !0,
+                                digits: true,
+                                validSoLuong: 1,
+                            },
+                            trungbinh: {
+                                required: !0,
+                                digits: true,
+                                validSoLuong: 2,
+                            },
+                            kho: {
+                                required: !0,
+                                digits: true,
+                                validSoLuong: 3,
+                            },
+                        },
+                        messages: {
+                            "name-exam": {
+                                required: "Vui lòng nhập tên đề kiểm tra",
+                            },
+                            "time-start": {
+                                required: "Vui lòng chọn thời điểm bắt đầu của bài kiểm tra",
+                                validTimeStart:
+                                    "Thời gian bắt đầu không được bé hơn thời gian hiện tại",
+                            },
+                            "time-end": {
+                                required: "Vui lòng chọn thời điểm kết thúc của bài kiểm tra",
+                                validTimeEnd: "Thời gian kết thúc không hợp lệ",
+                            },
+                            "exam-time": {
+                                required: "Vui lòng chọn thời gian làm bài kiểm tra",
+                            },
+                            "nhom-hp": {
+                                required: "Vui lòng chọn nhóm học phần giảng dạy",
+                            },
+                            chuong: {
+                                required: "Vui lòng chọn số chương cho đề kiểm tra",
+                            },
+                            coban: {
+                                required: "Vui lòng cho biết số câu dễ",
+                                digits: "Vui lòng nhập số",
+                            },
+                            trungbinh: {
+                                required: "Vui lòng cho biết số câu trung bình",
+                                digits: "Vui lòng nhập số",
+                            },
+                            kho: {
+                                required: "Vui lòng cho biết số câu khó",
+                                digits: "Vui lòng nhập số",
+                            },
+                        },
+                    });
+                }
+                static init() {
+                    this.initValidation();
+                }
+            }.init()
+        );
+        $(document).ready(function () {
+            function showGroup() {
+                let html = "<option></option>";
+                $.ajax({
+                    type: "post",
+                    url: "/admin/nhom/GetMonHoc",
+                    async: false,
+                    data: {
+                        hienthi: 1,
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        groups = response.data;
+                        if (response.code === 200 && response.data) {
+                            response.data.forEach((item, index) => {
+                                html += `<option value="${index++}">${item.mamonhoc +
+                                    " - " +
+                                    item.tenmonhoc +
+                                    " - NH" +
+                                    item.namhoc +
+                                    " - HK" +
+                                    item.hocky
+                                    }</option>`;
+                            });
+                            $("#nhom-hp").html(html);
+                        }
+                    },
+                });
+            }
+            showGroup();
+            function loadDataDeThi() {
+                let html = "<option></option>";
+                let html1 = "<option value=''></option>";
+                const format = new Intl.DateTimeFormat(navigator.language, {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                });
+                $.ajax({
+                    type: "post",
+                    url: "/admin/dethi/LayThongTinDeThi",
+                    data: {
+                        id: made,
+                    },
+                    success: function (data) {
+                        if (data.code === 200 && data.dethi) {
+                            let idx = 1;
+                            console.log(data);
+                            console.log(data.dethi.nhoms[idx].tenmonhoc);
+                            html += `<option value="default" selected>${data.dethi.mamon +
+                                " - " +
+                                data.dethi.nhoms[1].tenmonhoc +
+                                " - NH" +
+                                data.dethi.nhoms[1].namhoc +
+                                " - HK" +
+                                data.dethi.nhoms[1].hocky
+                                }</option>`;
+                            
+                            $("#nhom-hp").html(html);
+                            let strOpenTime = "", strCloseTime = "";
+                            if (dateIsValid(data.dethi.thoigianbatdau)) {
+                                const openDate = parseApiDate(data.dethi.thoigianbatdau);
+                                strOpenTime = format.format(openDate);
+                            }
+                            if (dateIsValid(data.dethi.thoigianketthuc)) {
+                                const closeDate = parseApiDate(data.dethi.thoigianketthuc);
+                                strCloseTime = format.format(closeDate);
+                            }
+                            $("#name-exam").val(data.dethi.tende);
+                            $("#exam-time").val(data.dethi.thoigianthi);
+                            $("#coban").val(data.dethi.socaude);
+                            $("#trungbinh").val(data.dethi.socautb);
+                            $("#kho").val(data.dethi.socaukho);
+                            $("#time-start").val(strOpenTime);
+                            $("#time-end").val(strCloseTime);
+                            data.dethi.chuongs.forEach((chuong) => {
+                                html1 += `<option value="${chuong.ID}" selected>${chuong.tenchuong}</option>`;
+                            });
+                            $("#chuong").html(html1);
+                            if (data.dethi.troncauhoi == true) $("#daocauhoi").prop("checked");
+                            if (data.dethi.trondapan == true) $("#daodapan").prop("checked");
+                            if (data.dethi.xemdiemthi == true) $("#xemdiem").prop("checked");
+                            if (data.dethi.xemdapan == true) $("#xemda").prop("checked");
+                            if (data.dethi.hienthibailam == true) $("#xembailam").prop("checked");
+                            if (data.dethi.nopbaichuyentab == true) $("#tudongnop").prop("checked");
+                        }
+                    },
+                });
+            }
+            loadDataDeThi();
+
+            function showChapter(mamonhoc) {
+                let html = "<option value=''></option>";
+                $("#chuong").val("").trigger("change");
+                $.ajax({
+                    type: "get",
+                    url: "/admin/monhoc/DsChuong",
+                    data: {
+                        ID: mamonhoc,
+                    },
+                    success: function (data) {
+                        if (data.code === 200 && data.dschuong) {
+                            data.dschuong.forEach((item) => {
+                                html += `<option value="${item.ID}">${item.tenchuong}</option>`;
+                            });
+                            $("#chuong").html(html);
+                        }
+                    },
+                });
+            }
+
+            $("#tudongsoande").on("click", function () {
+                $(".show-chap").toggle();
+                $("#chuong").val("").trigger("change");
+            });
+
+            $("#btn-edit").click(function (e) {
+                e.preventDefault();
+                mamon = groups[$("#nhom-hp").val()].mamonhoc;
+                thoigianthi = $("#exam-time").val();
+                thoigianbatdau = $("#time-start").val();
+                thoigianketthuc = $("#time-end").val();
+                socaude = $("#coban").val();
+                socautb = $("#trungbinh").val();
+                socaukho = $("#kho").val();
+                xemdiemthi = $("#xemdiem").prop("checked");
+                troncauhoi = $("#daocauhoi").prop("checked");
+                trondapan = $("#daodapan").prop("checked");
+                nopbaichuyentab = $("#tudongnop").prop("checked");
+                hienthibailam = $("#xembailam").prop("checked");
+                xemdapan = $("#xemda").prop("checked");
+                loaide = $("#tudongsoande").prop("checked") ? 1 : 0;
+                xembailam = $("#xembailam").prop("checked") ? 1 : 0;
+                if ($(".form-taodethi").valid()) {
+                    if (getGroupSelected().length != 0) {
+                        $.ajax({
+                            type: "post",
+                            url: "/admin/dethi/taodethi",
+                            data: {
+                                mamonthi: mamon,
+                                tende: tende,
+                                thoigianthi: thoigianthi,
+                                thoigianbatdau: formatDateForServer(thoigianbatdau),
+                                thoigianketthuc: formatDateForServer(thoigianketthuc),
+                                socaude: socaude,
+                                socautb: socautb,
+                                socaukho: socaukho,
+                                loaide: loaide,
+                                xemdiemthi: xemdiemthi,
+                                xemdapan: xemdapan,
+                                hienthibailam: hienthibailam,
+                                troncauhoi: troncauhoi,
+                                trondapan: trondapan,
+                                nopbaichuyentab: nopbaichuyentab,
+                                nhoms: getGroupSelected(),
+                                chuongs: $("#chuong").val()
+                            },
+                            success: function (response) {
+                                if (response.code === 200) {
+                                    if ($("tudongsoande").prop("check")) location.href = "#";
+                                    else location.href = "";
+                                } else {
+                                    Dashmix.helpers("jq-notify", {
+                                        type: "danger",
+                                        icon: "fa fa-times me-1",
+                                        message: "Tạo đề thi không thành công!",
+                                    });
+                                }
+                            },
+                        });
+                    } else {
+                        Dashmix.helpers("jq-notify", {
+                            type: "danger",
+                            icon: "fa fa-times me-1",
+                            message: "Bạn phải chọn ít nhất một nhóm học phần!",
+                        });
+                    }
+                }
+            });
+            $("#nhom-hp").on("change", function () {
+                let index = $(this).val();
+                //let mamonhoc = groups[index].mamonhoc;
+                console.log(index);
+                //showListGroup(index);
+                //showChapter(mamonhoc);
+            });
+        })
+    </script>
+}
+

@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Landing";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="dropdown">
+        <button type="button" class="btn btn-alt-secondary dropdown-toggle module__dropdown" id="dropdown-default-light" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="si si-settings"></i>
+        </button>
+        <div class="dropdown-menu  fs-sm" aria-labelledby="dropdown-default-light">
+            <a class="nav-main-link dropdown-item" href="#">
+                <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
+                <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
+            </a>
+            <a class="nav-main-link dropdown-item btn-update-group" href="javascript:void(0)" >
+                <i class="nav-main-link-icon si si-pencil me-2 text-dark"></i>
+                <span class="nav-main-link-name fw-normal">Sửa thông tin</span>
+            </a>
+            <a class="nav-main-link dropdown-item btn-delete-group" href="javascript:void(0)">
+                <i class="nav-main-link-icon si si-trash me-2 text-danger"></i>
+                <span class="nav-main-link-name fw-normal text-danger">Xoá nhóm</span>
+            </a>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+
+
+

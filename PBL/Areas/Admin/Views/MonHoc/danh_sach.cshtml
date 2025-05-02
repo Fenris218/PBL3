@@ -1,0 +1,521 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">Danh sách môn học</h3>
+            <div class="block-options">
+                <button class="btn btn-hero btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#modal-add-subject">
+                    <i class="fa-regular fa-plus"></i> Thêm môn học
+                </button>
+            </div>
+        </div>
+        <div class="block-content">
+            <form action="#" id="search-form" onsubmit="return false;">
+                <div class="mb-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
+                               placeholder="Tìm kiếm môn học..." />
+                        <button class="input-group-text bg-body border-0 btn-search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-vcenter">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Mã môn</th>
+                            <th>Tên môn</th>
+                            <th class="d-none d-sm-table-cell text-center">Số tín chỉ</th>
+                            <th class="d-none d-sm-table-cell text-center">Số tiết lý thuyết</th>
+                            <th class="d-none d-sm-table-cell text-center">Số tiết thực hành</th>
+                            <th class="text-center col-action">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="Dsmonhoc"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-add-subject" tabindex="-1" role="dialog" aria-labelledby="modal-add-subject"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="block block-rounded block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title add-subject-element">Thêm môn học</h3>
+                    <h3 class="block-title update-subject-element">Chỉnh sửa môn học</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-fw fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <form class="block-content fs-sm form-add-subject">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Mã môn học</label>
+                        <input type="text" class="form-control form-control-alt" name="mamonhoc" id="mamonhoc"
+                               placeholder="Nhập mã môn học">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Tên môn học</label>
+                        <input type="text" class="form-control form-control-alt" name="tenmonhoc" id="tenmonhoc"
+                               placeholder="Nhập tên môn học">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Tổng số tín chỉ</label>
+                        <input type="number" class="form-control form-control-alt" name="sotinchi" id="sotinchi"
+                               placeholder="Nhập số tín chỉ">
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="" class="form-label">Số tiết lý thuyết</label>
+                                <input type="number" class="form-control form-control-alt" name="sotiet_lt"
+                                       id="sotiet_lt" placeholder="Nhập số tiết lý thuyết">
+                            </div>
+                            <div class="col-6">
+                                <label for="" class="form-label">Số tiết thực hành</label>
+                                <input type="number" class="form-control form-control-alt" name="sotiet_th"
+                                       id="sotiet_th" placeholder="Nhập số tiết thực hành">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="block-content block-content-full text-end bg-body">
+                    <button type="button" class="btn btn-sm btn-alt-secondary me-1"
+                            data-bs-dismiss="modal">
+                        Đóng
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary add-subject-element"
+                            id="add_subject">
+                        Lưu
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary update-subject-element" id="update_subject"
+                            data-id="">
+                        Cập nhật
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-chapter" tabindex="-1" role="dialog" aria-labelledby="modal-chapter"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Danh sách chương</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-1">
+                <div class="table-responsive">
+                    <table class="table table-vcenter">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Tên chương</th>
+                                <th class="text-center col-header-action">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="showChapper"></tbody>
+                    </table>
+                </div>
+                <div class="block block-rounded mb-3">
+                    <div class="block-content pb-3">
+                        <a class="fw-bold" data-bs-toggle="collapse" href="#collapseChapter" role="button"
+                           aria-expanded="false" aria-controls="collapseChapter" id="btn-add-chapter">
+                            <i class="fa fa-fw fa-plus"></i>Thêm chương
+                        </a>
+                        <div class="collapse" id="collapseChapter">
+                            <form method="post" class="mt-2 form-chapter">
+                                <div class="row mb-1">
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" name="name_chapter"
+                                               id="name_chapter" placeholder="Nhập tên chương">
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="hidden" name="mamon_chuong" id="mamon_chuong">
+                                        <input type="hidden" name="machuong" id="machuong">
+                                        <button id="add-chapter" type="submit" class="btn btn-alt-primary">
+                                            Tạo
+                                            chương
+                                        </button>
+                                        <button id="edit-chapter" type="submit" class="btn btn-primary">
+                                            Đổi
+                                            tên
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-alt-secondary close-chapter">
+                                            Huỷ
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var monHocId;
+        var idchuong = "";
+        var id = "";
+        Dashmix.helpersOnLoad(["js-flatpickr", "jq-datepicker", "jq-select2"]);
+        Dashmix.onLoad(() =>
+            class {
+                static initValidation() {
+                    Dashmix.helpers("jq-validation"),
+                        jQuery(".form-add-subject").validate({
+                            rules: {
+                                mamonhoc: {
+                                    required: !0,
+                                    digits: true,
+                                },
+                                tenmonhoc: {
+                                    required: !0,
+                                },
+                                sotinchi: {
+                                    required: !0,
+                                },
+                                sotiet_lt: {
+                                    required: !0,
+                                },
+                                sotiet_th: {
+                                    required: !0,
+                                },
+                            },
+                            messages: {
+                                mamonhoc: {
+                                    required: "Vui lòng nhập mã môn học",
+                                    digits: "Mã môn học phải là các ký tự số",
+                                },
+                                tenmonhoc: {
+                                    required: "Vui lòng cung cấp tên môn học",
+                                },
+                                sotinchi: {
+                                    required: "Vui lòng cho biết số tín chỉ",
+                                },
+                                sotiet_lt: {
+                                    required: "Vui lòng nhập số tiết lý thuyết",
+                                },
+                                sotiet_th: {
+                                    required: "Vui lòng nhập số tiết thực hành",
+                                },
+                            },
+                        });
+                }
+                static init() {
+                    this.initValidation();
+                }
+            }.init()
+        );
+
+        $(document).ready(function () {
+            LoadDsMon();
+            //Thêm môn học
+            $("[data-bs-target='#modal-add-subject']").click(function (e) {
+                e.preventDefault();
+                $(".update-subject-element").hide();
+                $(".add-subject-element").show();
+            });
+            $("#add_subject").on("click", function () {
+                let mamonhoc = $("#mamonhoc").val();
+                if ($(".form-add-subject").valid()) {
+                    $.ajax({
+                        type: "post",
+                        url: "/admin/monhoc/ThemMon",
+                        data: {
+                            mamonhoc: mamonhoc,
+                            tenmonhoc: $("#tenmonhoc").val(),
+                            sotinchi: $("#sotinchi").val(),
+                            sotietlithuyet: $("#sotiet_lt").val(),
+                            sotietthuchanh: $("#sotiet_th").val(),
+                        },
+                        success: function (response) {
+                            if (response.code == 200) {
+                                Dashmix.helpers("jq-notify", {
+                                    type: "success",
+                                    icon: "fa fa-check me-1",
+                                    message: "Thêm môn học thành công!",
+                                });
+                                $("#modal-add-subject").modal("hide");
+                            }
+                            else {
+                                Dashmix.helpers("jq-notify", {
+                                    type: "danger",
+                                    icon: "fa fa-times me-1",
+                                    message: "Thêm môn học không thành công!",
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+            // click sửa môn
+            $(document).on("click", ".btn-edit-subject", function () {
+                $(".update-subject-element").show();
+                $(".add-subject-element").hide();
+                id = $(this).data("id");
+                $.ajax({
+                    type: "get",
+                    url: "/admin/monhoc/chiTietMonHoc",
+                    data: {
+                        mamon: id,
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.code == 200) {
+                            $("#mamonhoc").val(response.monhoc.mamonhoc),
+                                $("#tenmonhoc").val(response.monhoc.tenmonhoc),
+                                $("#sotinchi").val(response.monhoc.sotinchi),
+                                $("#sotiet_lt").val(response.monhoc.sotietlithuyet),
+                                $("#sotiet_th").val(response.monhoc.sotietthuchanh),
+                                $("#modal-add-subject").modal("show"),
+                                $("#update_subject").data("id", response.monhoc.mamonhoc);
+                        }
+                    },
+                })
+            });
+
+        });
+
+        $("#modal-add-subject").on("hidden.bs.modal", function () {
+                $("#mamonhoc").val(""),
+                $("#tenmonhoc").val(""),
+                $("#sotinchi").val(""),
+                $("#sotiet_lt").val(""),
+                $("#sotiet_th").val(""),
+                $("#update_subject").data("id", "");
+        });
+
+        $("#update_subject").click(function (e) {
+            e.preventDefault();
+            if ($(".form-add-subject").valid()) {
+                $.ajax({
+                    type: "post",
+                    url: "/admin/monhoc/SuaMon",
+                    data: {
+                        id: id,
+                        mamon: $("#mamonhoc").val(),
+                        tenmon: $("#tenmonhoc").val(),
+                        sotinchi: $("#sotinchi").val(),
+                        sotietlythuyet: $("#sotiet_lt").val(),
+                        sotietthuchanh: $("#sotiet_th").val(),
+                    },
+                    success: function (response) {
+                        if (response) {
+                            $("#modal-add-subject").modal("hide");
+                            Dashmix.helpers("jq-notify", {
+                                type: "success",
+                                icon: "fa fa-check me-1",
+                                message: "Cập nhật môn học thành công!",
+                            });
+                            LoadDsMon();
+                        } else {
+                            Dashmix.helpers("jq-notify", {
+                                type: "danger",
+                                icon: "fa fa-times me-1",
+                                message: "Cập nhật môn học không thành công!",
+                            });
+                        }
+                    },
+                });
+            }
+        });
+
+        $(document).on("click", ".subject-info", function () {
+            id = $(this).data("id");
+            $("#mamon_chuong").val(id);
+            LoadDsChuong(id);
+        });
+
+        function resetFormChapter() {
+            $("#collapseChapter").collapse("hide");
+            $("#name_chapter").val("");
+        }
+
+        $("#modal-chapter").on("hidden.bs.modal", function () {
+            resetFormChapter();
+        });
+
+        function LoadDsChuong(id) {
+            $.ajax({
+                type: "get",
+                url: "/admin/monhoc/DsChuong",
+                data: {
+                    ID: id,
+                },
+                dataType: "json",
+                success: function (response) {
+                    let html = "";
+                    if (response.code === 200 && response.dschuong && response.dschuong.length > 0) {
+                        response.dschuong.forEach((chuong, index) => {
+                            html += `<tr>
+                                    <td class="text-center fs-sm"><strong>${index + 1
+                                }</strong></td>
+                                    <td>${chuong.tenchuong}</td>
+                                    <td class="text-center col-action">
+                                        <a class="btn btn-sm btn-alt-secondary chapter-edit"
+                                        data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit" data-id="${chuong.ID
+                                }">
+                                        <i class="fa fa-fw fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-alt-secondary chapter-delete" href="javascript:void(0)"
+                                        data-bs-toggle="tooltip" aria-label="Delete"
+                                        data-bs-original-title="Delete" data-id="${chuong.ID
+                                }">
+                                        <i class="fa fa-fw fa-times"></i>
+                                    </a>
+                                    </td>
+                            </tr>`;
+                        });
+                    }
+                    else {
+                        html += `<tr><td class="text-center fs-sm" colspan="3">
+                                    <img style="width:180px" src="@Url.Content("~/Assets/media/svg/empty_data.png")" alt=""/>
+                                    <p class="text-center mt-3">Không có dữ liệu</p>
+                                    </td>
+                                 </tr>`;
+                    }
+                    $("#showChapper").html(html);
+                },
+            })
+        }
+
+        $("#btn-add-chapter").click(function () {
+            $("#add-chapter").show();
+            $("#edit-chapter").hide();
+            $("#name_chapter").val("");
+        });
+
+        $("#add-chapter").on("click", function (e) {
+            e.preventDefault();
+            let mamonhoc = $("#mamon_chuong").val();
+            if ($("#name_chapter").val() == "") {
+                Dashmix.helpers("jq-notify", {
+                    type: "danger",
+                    icon: "fa fa-times me-1",
+                    message: "Tên chương không để trống!",
+                });
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: "/admin/monhoc/ThemChuong",
+                    data: {
+                        tenchuong: $("#name_chapter").val(),
+                        mamonhoc: mamonhoc,
+                    },
+                    success: function (response) {
+                        if (response.code === 201) {
+                            Dashmix.helpers("jq-notify", {
+                                type: "success",
+                                icon: "fa fa-check me-1",
+                                message: "Thêm chương thành công!",
+                            });
+                            resetFormChapter();
+                            LoadDsChuong(mamonhoc);
+                        }
+                    },
+                });
+            }
+        });
+
+        $(".close-chapter").click(function (e) {
+            e.preventDefault();
+            $("#collapseChapter").collapse("hide");
+        });
+
+        function LoadDsMon() {
+            let html = "";
+            $.ajax({
+                url: '/admin/monhoc/DsMon',
+                type: 'get',
+                success: function (data) {
+                    if (data.code == 200) {
+                        $('#Dsmonhoc').empty();
+                        $.each(data.dsmon, function (k, v) {
+                            html += '<tr tid="' + v.ID + '">'
+                                + '<td class="text-center fs-sm"><strong>' + v.mamonhoc + '</strong></td>'
+                                + '<td>' + v.tenmonhoc + '</td>'
+                                + '<td class="d-none d-sm-table-cell text-center fs-sm">' + v.sotinchi + '</td>'
+                                + '<td class="d-none d-sm-table-cell text-center fs-sm">' + v.sotietlithuyet + '</td>'
+                                + '<td class="d-none d-sm-table-cell text-center fs-sm">' + v.sotietthuchanh + '</td>'
+                                + '<td class="text-center col-action">'
+                                +     '<a class="btn btn-sm btn-alt-secondary subject-info" data-bs-toggle="modal" data-bs-target="#modal-chapter"'
+                                +          'data-bs-toggle="tooltip" data-id="' + v.ID + '" >'
+                                +          '<i class="fa fa-circle-info"></i>'
+                                +     '</a>'
+                                +     '<a class="btn btn-sm btn-alt-secondary btn-edit-subject" href="javascript:void(0)"'
+                                +          'data-bs-toggle="tooltip" data-id="' + v.ID + '" >'
+                                +          '<i class="fa fa-fw fa-pencil"></i>'
+                                +     '</a>'
+                                +     '<a class="btn btn-sm btn-alt-secondary btn-delete-subject"'
+                                +          'data-bs-toggle="tooltip" data-id="' + v.ID + '" >'
+                                +          '<i class="fa fa-fw fa-times"></i>'
+                                +     '</a>'
+                                + '</td>'
+                                + '</tr>';
+                            $('#Dsmonhoc').html(html);
+                            $('[data-bs-toggle="tooltip"]').tooltip();
+                        })
+                    }
+                },
+            });
+            $(document).on("click", ".chapter-edit", function () {
+                $("#add-chapter").hide();
+                $("#edit-chapter").show();
+                let id = $(this).data("id");
+                console.log(id);
+                $("#machuong").val(id);
+                $("#collapseChapter").collapse("show");
+                let name = $(this).closest("td").closest("tr").children().eq(1).text();
+                console.log(name);
+                $("#name_chapter").val(name);
+            });
+            $("#edit-chapter").on("click", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "post",
+                    url: "/admin/monhoc/SuaChuong",
+                    data: {
+                        id: $("#machuong").val(),
+                        tenchuong: $("#name_chapter").val(),
+                    },
+                    success: function (response) {
+                        if (response) {
+                            LoadDsChuong($("#mamon_chuong").val());
+                            resetFormChapter();
+                            Dashmix.helpers("jq-notify", {
+                                type: "success",
+                                icon: "fa fa-check me-1",
+                                message: "Cập nhật chương thành công!",
+                            });
+                        } else {
+                            Dashmix.helpers("jq-notify", {
+                                type: "danger",
+                                icon: "fa fa-times me-1",
+                                message: "Cập nhật chương không thành công!",
+                            });
+                        }
+                    },
+                });
+            });
+
+        }
+    </script>
+}

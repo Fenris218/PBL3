@@ -1,0 +1,419 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="content">
+    <div class="row">
+        <div class="col-6 flex-grow-1">
+            <div class="input-group">
+                <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    Đang giảng dạy
+                </button>
+                <ul class="dropdown-menu mt-1">
+                    <li>
+                        <a class="dropdown-item filter-search" href="javascript:void(0)" data-value="1">
+                            Đang giảng
+                            dạy
+                        </a>
+                    </li>
+                    <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-value="0">Đã ẩn</a></li>
+                </ul>
+                <input type="text" class="form-control" placeholder="Tìm kiếm nhóm..." id="form-search-group">
+            </div>
+        </div>
+        <div class="col-6 d-flex align-items-center justify-content-end gap-3">
+            <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#modal-add-group">
+                <i class="fa fa-fw fa-plus me-1"></i> Thêm nhóm
+            </button>
+        </div>
+    </div>
+    <div class="class-group" id="class-group">
+    </div>
+</div>
+<div class="modal fade" id="modal-add-group" tabindex="-1" role="dialog" aria-labelledby="modal-add-group"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="block block-rounded block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title add-group-element">Thêm nhóm</h3>
+                    <h3 class="block-title update-group-element">Cập nhật thông tin nhóm</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-fw fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <form class="block-content fs-sm form-add-group">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Tên nhóm</label>
+                        <input type="text" class="form-control" name="ten-nhom" id="ten-nhom"
+                               placeholder="Nhập tên nhóm">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Ghi chú</label>
+                        <input type="text" class="form-control" name="ghi-chu" id="ghi-chu" placeholder="Nhập ghi chú">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Môn học</label>
+                        <select class="js-select2 form-select" id="mon-hoc" name="mon-hoc" style="width: 100%;"
+                                data-placeholder="Chọn môn học">
+                        </select>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-6">
+                            <label for="" class="form-label">Năm học</label>
+                            <select class="js-select2 form-select" id="nam-hoc" name="nam-hoc" style="width: 100%;"
+                                    data-placeholder="Chọn năm học">
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="" class="form-label">Học kỳ</label>
+                            <select class="js-select2 form-select" id="hoc-ky" name="hoc-ky" style="width: 100%;"
+                                    data-placeholder="Chọn học kỳ">
+                                <option></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="block-content block-content-full text-end bg-body">
+                    <button type="button" class="btn btn-sm btn-alt-secondary me-1"
+                            data-bs-dismiss="modal">
+                        Đóng
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary add-group-element" id="add-group">Lưu</button>
+                    <button type="button" class="btn btn-sm btn-primary update-group-element" id="update-group"
+                            data-id="">
+                        Cập nhật
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        Dashmix.helpersOnLoad(["jq-select2"]);
+        Dashmix.onLoad((() => class {
+            static initValidation() {
+                Dashmix.helpers("jq-validation"), jQuery(".form-add-group").validate({
+                    rules: {
+                        "ten-nhom": {
+                            required: !0,
+                        },
+                        "ghi-chu": {
+                            required: !0,
+                        },
+                        "mon-hoc": {
+                            required: !0,
+                        },
+                        "nam-hoc": {
+                            required: !0
+                        },
+                        "hoc-ky": {
+                            required: !0,
+                        },
+                    },
+                    messages: {
+                        "ten-nhom": {
+                            required: "Vui lòng nhập tên nhóm",
+                        },
+                        "ghi-chu": {
+                            required: "Vui lòng không để trống trường này",
+                        },
+                        "mon-hoc": {
+                            required: "Vui lòng chọn môn học",
+                        },
+                        "nam-hoc": {
+                            required: "Vui lòng chọn năm học",
+                        },
+                        "hoc-ky": {
+                            required: "Vui lòng chọn học kỳ",
+                        },
+                    }
+                })
+            }
+
+            static init() {
+                this.initValidation()
+            }
+        }.init()));
+        $(document).ready(function () {
+            let groups = [];
+            let mode = 1;
+
+            function loadDataGroup(hienthi) {
+                $.ajax({
+                    type: "post",
+                    url: "/admin/nhom/GetMonHoc",
+                    dataType: "json",
+                    data: {
+                        hienthi: hienthi
+                    },
+                    success: function (response) {
+                        console.log(response.data);
+                        if (response.code === 200 && response.data) {
+
+                            showGroup(response.data);
+                            groups = response.data;
+                        }
+                    }
+                });
+            }
+
+            loadDataGroup(mode);
+            function showGroup(list) {
+                console.log(list);
+                let html = "";
+                let d = 0;
+                if (list.length == 0) {
+                    html += `<p class="text-center mt-5">Không có dữ liệu</p>`
+                } else {
+                    list.forEach((item, index) => {
+                        let htmlbtnhide = mode == 1 ? `<button data-index="${index}" type="button" class="btn btn-alt-secondary btn-sm btn-hide-all ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Ẩn tất cả"><i
+                            class="far fa-eye-slash"></i></button>` : `<button data-index="${index}" type="button" class="btn btn-alt-secondary btn-sm btn-unhide-all ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Huỷ tất cả"><i
+                            class="fa fa-rotate-left"></i></button>`
+                        html += `<div>
+                                <div class="heading-group d-flex align-items-center">
+                                    <h2 class="content-heading pb-0" id="${d++}">${"<span class='mamonhoc'>" + item.mamonhoc + "</span>" + " - " + "<span class='tenmonhoc'>" + item.tenmonhoc + "</span>" + " - NH" + "<span class='namhoc'>" + item.namhoc + "</span>" + " - HK" + "<span class='hocky'>" + item.hocky + "</span>"}</h2>
+                                    ${htmlbtnhide}
+                                </div>
+                                <div class="row">`;
+                        item.nhom.forEach((nhom_item) => {
+                            let btn_hide = "";
+                            if (nhom_item.hienthi == 1) {
+                                btn_hide = `<a class="nav-main-link dropdown-item btn-hide-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                        <i class="nav-main-link-icon si si-eye me-2 text-dark"></i>
+                                        <span class="nav-main-link-name fw-normal">Ẩn nhóm</span>
+                                    </a>`
+                            } else {
+                                btn_hide = `<a class="nav-main-link dropdown-item btn-unhide-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                        <i class="nav-main-link-icon si si-action-undo me-2 text-dark"></i>
+                                        <span class="nav-main-link-name fw-normal">Khôi phục</span>
+                                    </a>`;
+                            }
+                            html += `
+                                    <div class="col-sm-6 col-lg-6 col-xl-3">
+                                    <div class="block block-rounded">
+                                        <div class="block-header block-header-default">
+                                            <h3 class="block-title block-class-name">${nhom_item.tennhom}</h3>
+                                            <div class="block-options">
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-alt-secondary dropdown-toggle module__dropdown" id="dropdown-default-light" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-id="${nhom_item.manhom}">
+                                                <i class="si si-settings"></i>
+                                                </button>
+                                                <div class="dropdown-menu  fs-sm" aria-labelledby="dropdown-default-light">
+                                                <a class="nav-main-link dropdown-item" href="/nhom/chitiet/${nhom_item.manhom}">
+                                                    <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
+                                                    <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
+                                                </a>
+                                                <a class="nav-main-link dropdown-item btn-update-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                                    <i class="nav-main-link-icon si si-pencil me-2 text-dark"></i>
+                                                    <span class="nav-main-link-name fw-normal">Sửa thông tin</span>
+                                                </a>
+                                                ${btn_hide}
+                                                <a class="nav-main-link dropdown-item btn-delete-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                                    <i class="nav-main-link-icon si si-trash me-2 text-danger"></i>
+                                                    <span class="nav-main-link-name fw-normal text-danger">Xoá nhóm</span>
+                                                </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-content">
+                                        <p class="block-class-note">${nhom_item.ghichu}</p>
+                                        <p class="Si-So">Sỉ số: <span>${nhom_item.siso}</span></p>
+                                    </div>
+                                    </div>
+                                </div>`;
+                        });
+                        html += `</div></div>`;
+                    });
+                }
+                $("#class-group").html(html);
+                $('[data-bs-toggle="tooltip"]').tooltip();
+            }
+
+            function showGroupBiAn(list) {
+                let html = "";
+                let d = 0;
+                if (list.length == 0) {
+                    html += `<p class="text-center mt-5">Không có dữ liệu</p>`
+                } else {
+                    list.forEach((item, index) => {
+                        let htmlbtnhide = mode == 1 ? `<button data-index="${index}" type="button" class="btn btn-alt-secondary btn-sm btn-hide-all ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Ẩn tất cả"><i
+                class="far fa-eye-slash"></i></button>` : `<button data-index="${index}" type="button" class="btn btn-alt-secondary btn-sm btn-unhide-all ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Huỷ tất cả"><i
+                class="fa fa-rotate-left"></i></button>`
+                        html += `<div>
+                    <div class="heading-group d-flex align-items-center">
+                        <h2 class="content-heading pb-0" id="${d++}">Bị Ẩn ${"<span class='mamonhoc'>" + item.mamonhoc + "</span>" + " - " + "<span class='tenmonhoc'>" + item.tenmonhoc + "</span>" + " - NH" + "<span class='namhoc'>" + item.namhoc + "</span>" + " - HK" + "<span class='hocky'>" + item.hocky + "</span>"}</h2>
+                        ${htmlbtnhide}
+                    </div>
+                    <div class="row">`;
+                        item.nhom.forEach((nhom_item) => {
+                            let btn_hide = "";
+                            if (nhom_item.hienthi == 1) {
+                                btn_hide = `<a class="nav-main-link dropdown-item btn-hide-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                            <i class="nav-main-link-icon si si-eye me-2 text-dark"></i>
+                            <span class="nav-main-link-name fw-normal">Ẩn nhóm</span>
+                        </a>`
+                            } else {
+                                btn_hide = `<a class="nav-main-link dropdown-item btn-unhide-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                            <i class="nav-main-link-icon si si-action-undo me-2 text-dark"></i>
+                            <span class="nav-main-link-name fw-normal">Khôi phục</span>
+                        </a>`;
+                            }
+                            html += `
+                        <div class="col-sm-6 col-lg-6 col-xl-3">
+                        <div class="block block-rounded">
+                            <div class="block-header block-header-default">
+                                <h3 class="block-title block-class-name">${nhom_item.tennhom}</h3>
+                                <div class="block-options">
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-alt-secondary dropdown-toggle module__dropdown" id="dropdown-default-light" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-id="${nhom_item.manhom}">
+                                    <i class="si si-settings"></i>
+                                    </button>
+                                    <div class="dropdown-menu  fs-sm" aria-labelledby="dropdown-default-light">
+                                    <a class="nav-main-link dropdown-item" href="/nhom/chitiet/${nhom_item.manhom}">
+                                        <i class="nav-main-link-icon si si-info me-2 text-dark"></i>
+                                        <span class="nav-main-link-name fw-normal">Danh sách sinh viên</span>
+                                    </a>
+                                    <a class="nav-main-link dropdown-item btn-update-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                        <i class="nav-main-link-icon si si-pencil me-2 text-dark"></i>
+                                        <span class="nav-main-link-name fw-normal">Sửa thông tin</span>
+                                    </a>
+                                    ${btn_hide}
+                                    <a class="nav-main-link dropdown-item btn-delete-group" href="javascript:void(0)" data-id="${nhom_item.manhom}">
+                                        <i class="nav-main-link-icon si si-trash me-2 text-danger"></i>
+                                        <span class="nav-main-link-name fw-normal text-danger">Xoá nhóm</span>
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-content">
+                            <p class="block-class-note">${nhom_item.ghichu}</p>
+                            <p class="Si-So">Sỉ số: <span>${nhom_item.siso}</span></p>
+                        </div>
+                        </div>
+                    </div>`;
+                        });
+                        html += `</div></div>`;
+                    });
+                }
+                $("#class-group").html(html);
+                $('[data-bs-toggle="tooltip"]').tooltip();
+            }
+            //ấn nút ẩn nhóm
+            $(document).on("click", ".btn-hide-group", function () {
+                let manhom = $(this).data("id");
+                updateHide(manhom, 0).then(response => {
+                    removeItem(manhom);
+                    showGroup(groups);
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Ẩn nhóm thành công!' });
+                }).catch(error => {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Ẩn nhóm không thành công!' });
+                });
+            });
+
+            function removeItem(manhom) {
+                for (let i = 0; i < groups.length; i++) {
+                    let index = groups[i].nhom.findIndex(item => item.manhom == manhom)
+                    if (index != -1) {
+                        groups[i].nhom.splice(index, 1);
+                        if (groups[i].nhom.length == 0) groups.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+            // ấn nút hủy ẩn nhóm
+            $(document).on("click", ".btn-unhide-group", function () {
+                let manhom = $(this).data("id");
+                updateHide(manhom, 1).then(response => {
+                    removeItem(manhom);
+                    showGroup(groups);
+                    Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: 'Huỷ ẩn nhóm thành công!' });
+                }).catch(error => {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: 'Huỷ ẩn nhóm không thành công!' });
+                });
+            });
+
+            //Dùng để hiện/ẩn nhóm
+            function updateHide(manhom, giatri) {
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        type: "post",
+                        url: "/admin/nhom/AnNhom",
+                        data: {
+                            id: manhom,
+                            hienthi: giatri
+                        },
+                        success: function (response) {
+                            if (response.code === 200) resolve(response);
+                        },
+                        error: function (error) {
+                            reject(error);
+                        }
+                    });
+                });
+            }
+
+            $(document).on("click", ".btn-update-group", function () {
+                $(".add-group-element").hide();
+                $(".update-group-element").show();
+                $("#modal-add-group").modal("show");
+                let id = $(this).data("id")
+                $("#update-group").data("id", id)
+                $.ajax({
+                    type: "get",
+                    url: "/admin/nhom/DsNhomByID",
+                    data: {
+                        IDnhom: id
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response.dsnhom);
+                        if (response.code === 200) {
+                            $("#ten-nhom").val(response.dsnhom.tennhom),
+                            $("#ghi-chu").val(response.dsnhom.ghichu),
+                            $("#mon-hoc").val(response.dsnhom.mamonhoc).trigger("change"),
+                            $("#nam-hoc").val(parseInt(response.dsnhom.namhoc)).trigger("change"),
+                            $("#hoc-ky").val(response.dsnhom.hocky).trigger("change")
+                        }                     
+                    }
+                });
+            });
+
+            $("[data-bs-target='#modal-add-group']").click(function (e) {
+                e.preventDefault();
+                $(".add-group-element").show();
+                $(".update-group-element").hide();
+            });
+
+            // Reset form khi đóng modal
+            $("#modal-add-group").on('hidden.bs.modal', function () {
+                $("#ten-nhom").val(""),
+                    $("#ghi-chu").val(""),
+                    $("#mon-hoc").val("").trigger("change"),
+                    $("#nam-hoc").val("").trigger("change"),
+                    $("#hoc-ky").val("").trigger("change")
+            });
+
+            // Thay đổi text khi nhấn vào dropdown
+            $(".filter-search").click(function (e) {
+                e.preventDefault();
+                $(".btn-filter").text($(this).text());
+                mode = $(this).data("value")
+                loadDataGroup(mode);
+            });
+        });
+    </script>
+
+    }

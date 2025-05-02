@@ -1,0 +1,314 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var made = ViewBag.ID ?? 0;
+}
+<div class="content" data-id="@made">
+    <div class="row g-0 flex-md-grow-1">
+        <div class="col-lg-4 col-xl-4 h100-scroll">
+            <div class="content px-1">
+                <div class="row g-sm d-lg-none push">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-primary w-100" data-toggle="layout"
+                                data-action="sidebar_toggle">
+                            <i class="fa fa-bars opacity-50 me-1"></i> Menu
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-alt-primary w-100" data-toggle="class-toggle"
+                                data-target="#side-content" data-class="d-none">
+                            <i class="fa fa-envelope opacity-50 me-1"></i> Câu hỏi
+                        </button>
+                    </div>
+                </div>
+                <div id="side-content" class="d-none d-lg-block push">
+                    <form action="#" method="POST" id="search-form" onsubmit="return false;">
+                        <div class="mb-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="search-input" name="search-input" placeholder="Tìm kiếm câu hỏi...">
+                                <!-- <input type="text" class="form-control" placeholder="Tìm kiếm câu hỏi.." id="search-content"> -->
+                                <span class="input-group-text">
+                                    <i class="fa fa-fw fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-sm btn-link fw-semibold dropdown-toggle"
+                                    id="inbox-msg-sort" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Chương
+                            </button>
+                            <div class="dropdown-menu  fs-sm" aria-labelledby="inbox-msg-sort" id="list-chapter">
+                                <a class="dropdown-item" href="javascript:void(0)">1</a>
+                                <a class="dropdown-item" href="javascript:void(0)">2</a>
+                                <a class="dropdown-item" href="javascript:void(0)">Tất cả</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-sm btn-link fw-semibold dropdown-toggle"
+                                    id="inbox-msg-filter" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Độ khó
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end fs-sm" aria-labelledby="inbox-msg-filter">
+                                <a class="dropdown-item active data-dokho" href="javascript:void(0);" data-id="0">Tất cả</a>
+                                <a class="dropdown-item data-dokho" href="javascript:void(0)" data-id="1">Dễ</a>
+                                <a class="dropdown-item data-dokho" href="javascript:void(0)" data-id="2">Trung bình</a>
+                                <a class="dropdown-item data-dokho" href="javascript:void(0)" data-id="3">Khó</a>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group fs-sm" id="list-question">
+                        <!-- Danh sách câu hỏi -->
+                    </ul>
+                    <?php if(isset($data["Plugin"]["pagination"])) require "./mvc/views/inc/pagination.php"?>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-xl-8 h100-scroll bg-body-dark">
+            <div class="content px-0">
+                <div class="block block-rounded">
+                    <div class="block-content block-content-sm block-content-full bg-body-light">
+                        <div class="d-flex py-3 align-items-center">
+                            <div class="flex-shrink-0 me-3 ms-2 overlay-container overlay-right">
+                                <p class="mb-0">Số lượng: </p>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <button type="button" class="btn btn-alt-primary">
+                                            Dễ
+                                            <span class="badge rounded-pill bg-xwork ms-1">
+                                                <span id="slcaude">0</span>/<span id="ttcaude">0</span>
+                                            </span>
+                                        </button>
+                                        <button type="button" class="btn btn-alt-primary">
+                                            Trung bình
+                                            <span class="badge rounded-pill bg-xwork ms-1">
+                                                <span id="slcautb">0</span>/<span id="ttcautb">0</span>
+                                            </span>
+                                        </button>
+                                        <button type="button" class="btn btn-alt-primary">
+                                            Khó
+                                            <span class="badge rounded-pill bg-xwork ms-1">
+                                                <span id="slcaukho">0</span>/<span id="ttcaukho">0</span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-hero btn-danger" id="save-test">
+                                            <i class="fa-solid fa-floppy-disk"></i> Tạo đề thi
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <h4 class="text-center mb-2" id="name-test"></h4>
+                        <p class="text-center text-muted">Thời gian: <span id="test-time"></span> phút</p>
+                        <div id="list-question-of-test">
+                            <!-- Danh sách câu hỏi của đề thi  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    header,
+    footer {
+        display: none !important
+    }
+
+    #page-container.page-header-fixed #main-container {
+        padding-top: 0 !important
+    }
+</style>
+@section scripts{
+    <script>
+        const made = $(".content").data("id");
+        //Thông tin đề thi
+        let infoTest
+        //Khởi tạo mảng câu hỏi của đề thi
+        let arrQuestion = [];
+        //Khởi tạo mảng danh sách câu hỏi lấy từ db
+        let questions = [];
+        //Khởi tạo tổng số trang 
+        let totalpage = 0
+        let currentQuestionLists;
+        $(document).ready(function () {
+            $(document).on("click", ".item-question", function () {
+                const id = +$(this).data("id");
+                const question = currentQuestionLists.find(question => question.ID == id);
+                if ($(this).prop("checked") == true) {
+                    
+                    arrQuestion.push(question);
+                    console.log(arrQuestion);
+                    showListQuestionOfTest(arrQuestion);
+
+
+
+                }
+            });
+
+            function showListQuestionOfTest(questions) {
+                let html = "";
+                if (questions.length == 0) {
+                    html += `<p class="text-center">Chưa có câu hỏi</p>`
+                } else {
+                    questions.forEach((question, index) => {
+                        html += `<div class="question mb-3 d-flex justify-content-between">
+                                    <div class="question-top px-3">
+                                        <p class="question-content fw-bold mb-3">${index + 1}. ${question.noidung}</p>
+                                        <div class="row">`;
+                                    question.cautraloi.forEach((item, i) => {
+                                    html += `<div class="col-12 mb-1">
+                                        <p class="mb-1"><b>${String.fromCharCode(i + 65)}.</b> ${item.noidung}</p>
+                                    </div>`;
+                        });
+                        html += `</div></div>
+                        <div class="btn-group-vertical h-100" role="group">
+                            <button type="button" class="btn btn-info btn-up" data-bs-toggle="tooltip" data-bs-placement="left" title="Đưa lên trên" data-index="${index}"><i class="fa fa-arrow-up"></i></button>
+                            <button type="button" class="btn btn-info btn-down" data-bs-toggle="tooltip" data-bs-placement="left" title="Đưa xuống dưới" data-index="${index}"><i class="fa fa-arrow-down"></i></button>
+                            <button type="button" class="btn btn-info btn-delete" data-bs-toggle="tooltip" data-bs-placement="left" title="Xoá câu hỏi" data-index="${index}"><i class="fa fa-delete-left"></i></button>
+                        </div>
+                        </div>`
+                    });
+                }
+                $("#list-question-of-test").html(html);
+                $('[data-bs-toggle="tooltip"]').tooltip();
+            }
+            
+
+            function getAnswerListForQuestion(questions) {
+                if (questions.length == 0) {
+                    $("#list - question").html(`<p class="text - center">Không có câu hỏi</p>`);
+                    return;
+                }
+                showListQuestion(questions);
+                const arrMaCauHoi = questions.map(question => +question.ID);
+                $.ajax({
+                    type: "get",
+                    url: "/admin/cauhoi/DsChuoiTraLoi",
+                    traditional: true,
+                    data: {
+                        idCauHoiArray: arrMaCauHoi,
+                    },
+                    dataType: "json",
+                    success: function (answers) {
+                        console.log(answers.dstraloi);
+                        currentQuestionLists = questions.map((question) => {
+                            const { ID } = question;
+                            return {
+                                ...question,
+
+                                cautraloi: answers.dstraloi
+                                    .filter((answer) => answer.macauhoi === ID)
+                                    .map(({ ID, noidung, ladapan }) => ({
+                                        ID,
+                                       
+                                        noidung,
+                                        ladapan
+                                    }))
+                            };
+                        });
+                        console.log(currentQuestionLists);
+                    },
+
+                });
+            }
+
+            function showListQuestion(questions) {
+                let html = '';
+                if (questions.length != 0) {
+                    questions.forEach((question, index) => {
+                        let dokhotext = ["", "Dễ", "TB", "Khó"];
+                        html += `<li class="list-group-item d-flex">
+                                    <div class="form-check">
+                                        <input class="form-check-input item-question" type="checkbox" id="q-${question.ID}" data-id="${question.ID}" data-index="${index}">
+                                        <label class="form-check-label text-muted" for="q-${question.ID}" style="word-break: break-all;">${question.noidung}</label>
+                                    </div>
+                                    <span class="badge rounded-pill bg-dark m-1 float-end h-100">${dokhotext[question.madokho]}</span>
+                                </li>`
+                    });
+                }
+                else {
+                    html += `<p class="text-center">Không có câu hỏi</p>`;
+                }
+                $("#list-question").html(html);
+            }
+            $.get(
+                "/admin/cauhoi/DsCauHoiTheoMonHoc",
+                { idmonhoc: made }, 
+                function (data) {
+                    console.log(data);
+                    if (data.code === 200) {
+                        questions = data.dscauhoi;
+                        showListQuestion(questions);
+                        getAnswerListForQuestion(questions);
+                    }
+                },
+                "json"
+            );
+         
+            function loadDataChapter(mamon) {
+                return $.ajax({
+                    type: "get",
+                    url: "/admin/monhoc/DsChuong",
+                    data: {
+                        ID: mamon,
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        showChapter(response.dschuong);
+                    }
+                });
+            }
+            
+            function showChapter(data) {
+                console.log(data);
+                let html = `<a class="dropdown-item active data-chapter" href="javascript:void(0)" data-id="0">Tất cả</a>`;
+                data.forEach(item => {
+                    html += `<a class="dropdown-item data-chapter" href="javascript:void(0)" data-id="${item.ID}">${item.tenchuong}</a>`
+                });
+                $("#list-chapter").html(html);
+            }
+            loadDataChapter(made);
+            $('#list-chapter').on("click", ".data-chapter", function () {
+                $(".data-chapter.active").removeClass("active");
+                $(this).addClass("active");
+                let machuong = +$(this).data("id");
+                console.log("ahihi chương: ", machuong);
+            });
+
+            $(document).on("click", ".btn-up", function () {
+                let index = +$(this).data("index");
+                if (index == 0) {
+                    $(this).tooltip('hide');
+                    return;
+                }
+                let temp = arrQuestion[index];
+                arrQuestion[index] = arrQuestion[index - 1];
+                arrQuestion[index - 1] = temp;
+                $(this).tooltip('hide');
+                showListQuestionOfTest(arrQuestion);
+            });
+
+            $(document).on("click", ".btn-down", function () {
+                let index = +$(this).data("index");
+                if (index == arrQuestion.length - 1) {
+                    $(this).tooltip('hide');
+                    return;
+                }
+                let temp = arrQuestion[index];
+                arrQuestion[index] = arrQuestion[index + 1];
+                arrQuestion[index + 1] = temp;
+                $(this).tooltip('hide');
+                showListQuestionOfTest(arrQuestion);
+            });
+        });
+
+        
+    </script>
+}

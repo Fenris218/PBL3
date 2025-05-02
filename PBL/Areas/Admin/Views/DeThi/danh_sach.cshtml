@@ -1,0 +1,230 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="content" >
+    <form action="#" method="POST" id="search-form" onsubmit="return false;">
+        <div class="row mb-4">
+            <div class="col-6 flex-grow-1">
+                <div class="input-group">
+                    <button class="btn btn-alt-primary dropdown-toggle btn-filtered-by-state" id="dropdown-filter-state" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
+                    <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-state">
+                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-value="0">Chưa mở</a></li>
+                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-value="1">Đang mở</a></li>
+                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-value="2">Đã đóng</a></li>
+                        <li><a class="dropdown-item filtered-by-state" href="javascript:void(0)" data-value="3">Tất cả</a></li>
+                    </ul>
+                    <input type="text" class="form-control" id="search-input" name="search-input" placeholder="Tìm kiếm đề thi...">
+                </div>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-end gap-3">
+                <a class="btn btn-hero btn-primary" data-action="create" href="/dethi/them"><i class="fa fa-fw fa-plus me-1"></i> Tạo đề thi</a>
+            </div>
+        </div>
+    </form>
+    <div class="list-test" id="list-test">
+    </div>
+</div>
+
+
+<script>
+    function dateIsValid(date) {
+        if (!date) return false;
+        if (typeof date === 'string' && date.startsWith('/Date(')) {
+            const timestampMatch = date.match(/\/Date\((\d+)\)\//);
+            if (!timestampMatch) return false;
+
+            const timestamp = parseInt(timestampMatch[1]);
+            return !isNaN(timestamp) && timestamp > 0;
+        }
+        const d = new Date(date);
+        return !isNaN(d.getTime());
+    }
+
+    function parseApiDate(dateString) {
+        if (typeof dateString === 'string' && dateString.startsWith('/Date(')) {
+            const timestamp = parseInt(dateString.replace(/\/Date\((\d+)\)\//, '$1'));
+            return new Date(timestamp);
+        }
+        return new Date(dateString);
+    }
+
+    function LoadDsDeThi() {
+        const format = new Intl.DateTimeFormat(navigator.language, {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+        html = "";
+        tests = [];
+        $.ajax({
+            url: '/admin/dethi/DsDeThi',
+            type: 'get',
+            success: function (data) {
+                if (data.code == 200 && data.dsdethi) {
+                    tests = data.dsdethi;
+                    if (tests.length == 0) {
+                        html += '<p class="text-center">Không có dữ liệu</p>'
+                    } else {
+                        tests.forEach((test) => {
+                            let htmlTestState = "";
+                            let strOpenTime = "", strCloseTime = "";
+                            if (dateIsValid(test.thoigianbatdau)) {
+                                const openDate = parseApiDate(test.thoigianbatdau);
+                                strOpenTime = format.format(openDate);
+                            }
+                            if (dateIsValid(test.thoigianketthuc)) {
+                                const closeDate = parseApiDate(test.thoigianketthuc);
+                                strCloseTime = format.format(closeDate);
+                            }
+                            const state = {};
+                            const now = Date.now();
+                            if (now < +open) {
+                                state.color = "secondary";
+                                state.text = "Chưa mở";
+                            } else if (now >= +open && now <= +close) {
+                                state.color = "primary";
+                                state.text = "Đang mở";
+                            } else {
+                                state.color = "danger";
+                                state.text = "Đã đóng";
+                            }
+                            htmlTestState += `<button class="btn btn-sm btn-alt-${state.color} rounded-pill px-3 me-1 my-1" disabled>${state.text}</button>`;
+                            html += `<div class="block block-rounded block-fx-pop mb-2">
+                                <div class="block-content block-content-full border-start border-3 border-${state.color}">
+                                    <div class="d-md-flex justify-content-md-between align-items-md-center">
+                                        <div class="p-1 p-md-3">
+                                            <h3 class="h4 fw-bold mb-3">
+                                                <a href="./test/detail/${test.made}" class="text-dark link-fx">${test.tende}</a>
+                                            </h3>
+                                            <p class="fs-sm text-muted mb-2">
+                                                <i class="fa fa-layer-group me-1"></i></i> Giao cho học phần <strong data-bs-toggle="tooltip" data-bs-animation="true" data-bs-placement="top" title="${test.nhom}" style="cursor:pointer">${test.tenmonhoc} - NH${test.namhoc} - HK${test.hocky}</strong>
+                                            </p>
+                                            <p class="fs-sm text-muted mb-0">
+                                                <i class="fa fa-clock me-1"></i> Diễn ra từ <span>${strOpenTime}</span> đến <span>${strCloseTime}</span> 
+                                            </p>
+                                        </div>
+                                        <div class="p-1 p-md-3">
+                                            ${htmlTestState}
+                                            <a class="btn btn-sm btn-alt-success rounded-pill px-3 me-1 my-1" href="/dethi/chitiet/${test.ID}">
+                                                <i class="fa fa-eye opacity-50 me-1"></i> Xem chi tiết
+                                            </a>
+                                            <a class="btn btn-sm btn-alt-primary rounded-pill px-3 me-1 my-1 btn-edit" href="/dethi/sua/${test.ID}">
+                                                <i class="fa fa-wrench opacity-50 me-1"></i> Chỉnh sửa
+                                            </a>
+                                            <a class="btn btn-sm btn-alt-danger rounded-pill px-3 my-1 btn-delete" href="javascript:void(0)" data-id="${test.ID}">
+                                                <i class="fa fa-times opacity-50 me-1"></i> Xoá đề
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                        });
+                    }
+                    $("#list-test").html(html);
+                    $('[data-bs-toggle="tooltip"]').tooltip();
+                }
+            }
+        });
+    }
+    $(document).ready(function () {
+        LoadDsDeThi();
+        let e = Swal.mixin({
+            buttonsStyling: !1,
+            target: "page-container",
+            customClass: {
+                confirmButton: "btn btn-success m-1",
+                cancelButton: "btn btn-danger m-1",
+                input: "form-control",
+            }
+        });
+
+        $(document).on("click", ".btn-edit", function () {
+            let id = $(this).data("id");
+            const format = new Intl.DateTimeFormat(navigator.language, {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+            });
+            $.ajax({
+                type: "post",
+                url: "/admin/dethi/LayThongTinDeThi",
+                data: {
+                    id: id,
+                },
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    //let gioitinh = 0;
+                    //if (response.nguoidung.gioitinh == "Nam") gioitinh = 1;
+                    //else gioitinh = 0;
+                    //let ngaysinh = "";
+                    //if (dateIsValid(response.nguoidung.ngaysinh)) {
+                    //    const birthday = parseApiDate(response.nguoidung.ngaysinh);
+                    //    ngaysinh = format.format(birthday);
+                    //}
+                    //$("#masinhvien").val(response.nguoidung.manguoidung);
+                    //$("#masinhvien").prop("disabled", true);
+                    //$("#user_name").val(response.nguoidung.hoten),
+                    //    $(`input[name="user_gender"][value="${gioitinh}"]`).prop(
+                    //        "checked",
+                    //        true
+                    //    ),
+                    //    $("#user_ngaysinh").val(ngaysinh);
+                    //$("#user_email").val(response.nguoidung.email);
+                    //$("#user_nhomquyen").val(response.nguoidung.manhomquyen).trigger("change");
+                    //$("#user_password").val(response.nguoidung.matkhau);
+                    //$("#user_sdt").val(response.nguoidung.sodienthoai);
+                    //$("#user_status").prop("checked", response.nguoidung.trangthai == 1);
+                    //$("#modal-add-user").modal("show");
+                },
+            });
+        });
+
+        $(document).on("click", ".btn-delete", function () {
+            let made = $(this).data("id");
+            e.fire({
+                title: "Are you sure?",
+                text: "Bạn có chắc chắn muốn xoá đề thi?",
+                icon: "warning",
+                showCancelButton: !0,
+                customClass: {
+                    confirmButton: "btn btn-danger m-1",
+                    cancelButton: "btn btn-secondary m-1",
+                },
+                confirmButtonText: "Vâng, tôi chắc chắn!",
+                html: !1,
+                preConfirm: (e) =>
+                    new Promise((e) => {
+                        setTimeout(() => {
+                            e();
+                        }, 50);
+                    }),
+            }).then((t) => {
+                if (t.value == true) {
+                    $.ajax({
+                        type: "post",
+                        url: "/admin/dethi/XoaDeThi",
+                        data: {
+                            id: made
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if (response) {
+                                e.fire("Deleted!", "Xóa đề thi thành công!", "success");
+                                LoadDsDeThi();           
+                            } else {
+                                e.fire("Lỗi !", "Xoá đề thi không thành công !)", "error");
+                            }
+                        },
+                    });
+                }
+            });
+        });
+    });
+</script>

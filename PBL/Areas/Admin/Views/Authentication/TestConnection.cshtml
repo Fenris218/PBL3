@@ -1,0 +1,20 @@
+﻿
+@*@{
+    ViewBag.Title = "TestConnection";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Message</h2>
+<table class="table">
+    <tr>
+        <th>Email</th>
+        <th>Họ tên</th>
+    </tr>
+    @foreach (var item in ViewBag.items)
+    {
+        <tr>
+            <td>@item.email</td>
+            <td>@item.hoten</td>
+        </tr>
+    }
+</table>*@

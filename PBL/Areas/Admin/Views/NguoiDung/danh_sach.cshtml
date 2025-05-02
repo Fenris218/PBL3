@@ -1,0 +1,562 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">Tất cả người dùng</h3>
+            <div class="block-options">
+                <button type="button" class="btn btn-hero btn-primary me-2" data-bs-toggle="modal"
+                        data-bs-target="#modal-add-user" id="btn-and">
+                    Thêm người dùng
+                </button>
+            </div>
+        </div>
+        <div class="block-content bg-body-dark">
+            <form action="#" id="search-form" onsubmit="return false;">
+                <div class="row mb-4">
+                    <div class="input-group">
+                        <div class="col-md-6 d-flex gap-3">
+                            <button class="btn btn-alt-secondary dropdown-toggle btn-filtered-by-role" id="dropdown-filter-role" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tất cả</button>
+                            <ul class="dropdown-menu mt-1" aria-labelledby="dropdown-filter-role">
+                                <li><a class="dropdown-item filtered-by-role" href="javascript:void(0)" data-id="0">Tất cả</a></li>
+                                <?php
+                                foreach ($data["Roles"] as $role) {
+                                echo '
+                                <li><a class="dropdown-item filtered-by-role" href="javascript:void(0)" data-id="'.$role['manhomquyen'].'">'.$role['tennhomquyen'].'</a></li>';
+                                }
+                                ?>
+                            </ul>
+                            <input type="text" class="form-control form-control-alt" id="search-input" name="search-input"
+                                   placeholder="Tìm kiếm người dùng...">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="block-content">
+            <div class="table-responsive" id="get_user">
+                <table class="table table-vcenter">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 100px;">MSSV</th>
+                            <th>Họ và tên</th>
+                            <th class="text-center">Giới tính</th>
+                            <th class="text-center">Ngày sinh</th>
+                            <th class="text-center">Nhóm quyền</th>
+                            <th class="text-center">Ngày tham gia</th>
+                            <th class="text-center">Trạng thái</th>
+                            <th class="text-center col-action">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list-user">
+                    </tbody>
+                </table>
+            </div>
+            <?php if (isset($data["Plugin"]["pagination"]))
+            require "./mvc/views/inc/pagination.php" ?>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-add-user" tabindex="-1" role="dialog" aria-labelledby="modal-add-user"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="block block-transparent bg-white mb-0 block-rounded">
+                <ul class="nav nav-tabs nav-tabs-block" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active" id="btabs-static-home-tab" data-bs-toggle="tab"
+                                data-bs-target="#btabs-static-home" role="tab" aria-controls="btabs-static-home"
+                                aria-selected="true">
+                            Thêm thủ công
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="btabs-static-profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#btabs-static-profile" role="tab" aria-controls="btabs-static-profile"
+                                aria-selected="false">
+                            Thêm từ file
+                        </button>
+                    </li>
+                    <li class="nav-item ms-auto">
+                        <button type="button" class="btn btn-close p-3" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </li>
+                </ul>
+                <div class="block-content tab-content">
+                    <form novalidate="novalidate" onsubmit="return false;" class="tab-pane active form-add-user"
+                          id="btabs-static-home" role="tabpanel" aria-labelledby="btabs-static-home-tab" tabindex="0">
+                        <div class="mb-4">
+                            <label for="masinhvien" class="form-label">Mã sinh viên</label>
+                            <input type="text" class="form-control form-control-alt" name="masinhvien" id="masinhvien"
+                                   placeholder="Nhập mã sinh viên">
+                        </div>
+                        <div class="mb-4">
+                            <label for="user_email" class="form-label">Email</label>
+                            <input type="email" class="form-control form-control-alt" name="user_email" id="user_email"
+                                   placeholder="Nhập địa chỉ email">
+                        </div>
+                        <div class="mb-4">
+                            <label for="user_name" class="form-label">Họ và tên</label>
+                            <input type="text" class="form-control form-control-alt" name="user_name" id="user_name"
+                                   placeholder="Nhập họ và tên">
+                        </div>
+                        <div class="mb-4">
+                            <label for="user_sdt" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control form-control-alt" name="user_sdt" id="user_sdt"
+                                   placeholder="Nhập số điện thoại">
+                        </div>
+                        <div class="mb-4 d-flex gap-4">
+                            <label for="gender-male" class="form-label">Giới tính</label>
+                            <div class="space-x-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="gender-male" name="user_gender"
+                                           value="1">
+                                    <label class="form-check-label" for="gender-male">Nam</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="gender-female" name="user_gender"
+                                           value="0">
+                                    <label class="form-check-label" for="gender-female">Nữ</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="user_ngaysinh" class="form-label">Ngày sinh</label>
+                            <input type="text" class="js-flatpickr form-control form-control-alt" id="user_ngaysinh"
+                                   name="user_ngaysinh" placeholder="Ngày sinh">
+                        </div>
+                        <div class="mb-4">
+                            <label for="user_nhomquyen" class="form-label">Nhóm quyền</label>
+                            <select class="js-select2 form-select data-nhomquyen" data-tab="1" id="user_nhomquyen"
+                                    style="width: 100%;" data-placeholder="Choose one..">
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="user_password" class="form-label">Mật khẩu</label>
+                            <input type="text" class="form-control form-control-alt" name="user_password"
+                                   id="user_password" placeholder="Nhập mật khẩu">
+                        </div>
+                        <div class="d-flex align-items-center gap-5">
+                            <label for="user_status" class="form-label">Trạng thái</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="user_status">
+                                <label class="form-check-label" for="user_status"></label>
+                            </div>
+                        </div>
+                        <div class="block-content block-content-full text-end">
+                            <button type="button" class="btn btn-sm btn-alt-secondary me-1"
+                                    data-bs-dismiss="modal">
+                                Đóng
+                            </button>
+                            <button type="submit" class="btn btn-sm btn-primary add-user-element"
+                                    id="btn-add-user">
+                                Lưu
+                            </button>
+                            <button type="button" class="btn btn-sm btn-primary update-user-element"
+                                    id="btn-update-user" data-id="">
+                                Cập nhật
+                            </button>
+                        </div>
+                    </form>
+                    <div class="tab-pane" id="btabs-static-profile" role="tabpanel"
+                         aria-labelledby="btabs-static-profile-tab" tabindex="0">
+                        <form id="form-upload" method="POST" enctype="multipart/form-data">
+                            <div class="mb-4">
+                                <label for="user_password" class="form-label">Mật khẩu</label>
+                                <input type="password" class="form-control form-control-alt" name="user_password"
+                                       id="ps_user_group" placeholder="Nhập mật khẩu cho sinh viên!">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="js-ckeditor">Nội dung</label>
+                                <input class="form-control" type="file" id="file-cau-hoi" accept=".xlsx, .xls, .csv" required>
+                            </div>
+                            <div class="mb-4">
+                                <em>
+                                    Vui lòng soạn người dùng theo đúng định dạng. <a href="~/Assets/media/avatars/">
+                                        Tải về file mẫu
+                                        Excel
+                                    </a>
+                                </em>
+                            </div>
+                            <div class="mb-4 d-flex justify-content-between">
+                                <button type="submit" class="btn btn-hero btn-primary" id="nhap-file">
+                                    <i class="fa fa-cloud-arrow-up"></i> Thêm vào hệ thống
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        Dashmix.helpersOnLoad(['js-flatpickr', 'jq-datepicker']);
+
+        Dashmix.onLoad((() => class {
+            static initValidation() {
+                Dashmix.helpers("jq-validation"), jQuery(".form-add-user").validate({
+                    rules: {
+                        "masinhvien": {
+                            required: !0,
+                            digits: true
+                        },
+                        "user_email": {
+                            required: !0,
+                            emailWithDot: !0
+                        },
+                        "user_name": {
+                            required: !0,
+                        },
+                        "user_gender": {
+                            required: !0,
+                        },
+                        "user_ngaysinh": {
+                            required: !0,
+                        },
+                        "user_nhomquyen": {
+                            required: !0,
+                        },
+                        "user_password": {
+                            required: !0,
+                            minlength: 5
+                        },
+                    },
+                    messages: {
+                        "masinhvien": {
+                            required: "Vui lòng nhập mã sinh viên của bạn",
+                            digits: "Mã sinh viên phải là các ký tự số"
+                        },
+                        "user_email": {
+                            required: "Vui lòng cung cấp email của bạn",
+                            emailWithDot: "Phải nhập đúng định dạng email"
+                        },
+                        "user_name": {
+                            required: "Cung cấp đầy đủ họ tên",
+                        },
+                        "user_gender": {
+                            required: "Tích chọn 1 trong 2",
+                        },
+                        "user_ngaysinh": {
+                            required: "Vui lòng cho biết ngày sinh của bạn",
+                        },
+                        "user_nhomquyen": {
+                            required: "Vui lòng chọn nhóm quyền",
+                        },
+                        "user_password": {
+                            required: "Nhập mật khẩu",
+                            minlength: "Mật khẩu phải có ít nhất 5 ký tự!"
+                        },
+                    }
+                })
+            }
+
+            static init() {
+                this.initValidation()
+            }
+        }.init()));
+        function dateIsValid(date) {
+            if (!date) return false;
+            if (typeof date === 'string' && date.startsWith('/Date(')) {
+                const timestampMatch = date.match(/\/Date\((\d+)\)\//);
+                if (!timestampMatch) return false;
+
+                const timestamp = parseInt(timestampMatch[1]);
+                return !isNaN(timestamp) && timestamp > 0;
+            }
+            const d = new Date(date);
+            return !isNaN(d.getTime());
+        }
+
+        function parseApiDate(dateString) {
+            if (typeof dateString === 'string' && dateString.startsWith('/Date(')) {
+                const timestamp = parseInt(dateString.replace(/\/Date\((\d+)\)\//, '$1'));
+                return new Date(timestamp);
+            }
+            return new Date(dateString);
+        }
+        $(document).ready(function () {
+            $("#user_nhomquyen").select2({
+                dropdownParent: $("#modal-add-user"),
+            });
+
+            function showData() {
+                const default_avatar = "@Url.Content("~/Assets/media/avatars/avatar2.jpg")";
+                const format = new Intl.DateTimeFormat(navigator.language, {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                });
+                $.ajax({
+                    url: "/admin/nguoidung/DsNguoiDung",
+                    type: "get",
+                    success: function (data) {
+
+                        if (data.code === 200 && data.dsnguoidung) {
+                            let html = "";
+                            data.dsnguoidung.forEach((user) => {
+                                let trangthai = "";
+                                let img = "";
+                                let tennhomquyen = "";
+                                let ngaythangnamsinh = "";
+                                let ngaythamgia = "";
+                                if (dateIsValid(user.ngaysinh)) {
+                                    const birthday = parseApiDate(user.ngaysinh);
+                                    ngaythangnamsinh = format.format(birthday);
+                                }
+                                if (dateIsValid(user.ngaythamgia)) {
+                                    const ngaybatdau = parseApiDate(user.ngaythamgia);
+                                    ngaythamgia = format.format(ngaybatdau);
+                                }
+                                switch (user.manhomquyen) {
+                                    case 1:
+                                        tennhomquyen = "Admin";
+                                        break;
+                                    case 2:
+                                        tennhomquyen = "Giảng viên";
+                                        break;
+                                    case 3:
+                                        tennhomquyen = "Sinh viên";
+                                        break;
+                                }
+                                html += `<tr>
+                                            <td class="text-center">
+                                                <strong>${user.manguoidung}</strong>
+                                            </td>
+                                            <td class="fs-sm d-flex align-items-center">
+                                                <img class="img-avatar img-avatar48 me-3" src="${user.avatar == null ? default_avatar : '/Assets/media/avatars/' + user.avatar}">
+
+                                                <div class="d-flex flex-column">
+                                                    <strong class="text-primary">${user.hoten
+                                                    }</strong>
+                                                    <span class="fw-normal fs-sm text-muted">${user.email
+                                                    }</span>
+                                                    <strong class="fw-normal fs-sm text-muted">${user.sodienthoai
+                                                    }</strong>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">${user.gioitinh
+                                    }</td>
+                                            <td class="text-center">${ngaythangnamsinh}</td>
+                                            <td class="text-center">${tennhomquyen}</td>
+                                            <td class="text-center">${ngaythamgia}</td>
+                                            <td class="text-center">
+                                                <span class="fs-xs fw-semibold d-inline-block py-1 px-3 rounded-pill ${user.trangthai == 1
+                                                    ? "bg-success-light text-success"
+                                                    : "bg-danger-light text-danger"
+                                                    } bg-success-light text-success">${user.trangthai == 1 ? "Hoạt động" : "Khoá"
+                                                }</span>
+                                            </td>
+                                            <td class="text-center col-action">
+                                                <a class="btn btn-sm btn-alt-secondary user-edit" href="javascript:void(0)"
+                                                data-bs-toggle="tooltip" aria-label="Chỉnh sửa" data-bs-original-title="Chỉnh sửa" data-id="${user.ID}">
+                                                    <i class="fa fa-fw fa-pencil"></i>
+                                                </a>
+                                                <a class="btn btn-sm btn-alt-secondary user-delete" href="javascript:void(0)" data-bs-toggle="tooltip"
+                                                    aria-label="Xoá" data-bs-original-title="Xoá" data-id="${user.ID
+                                                    }">
+                                                    <i class="fa fa-fw fa-times"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                `;
+                            });
+                            $("#list-user").html(html);
+                            $('[data-bs-toggle="tooltip"]').tooltip();
+                        }
+                    },
+                });
+            }
+            showData();
+            $.get(
+                "/admin/nguoidung/DsNhomQuyen",
+                function (data) {
+                    console.log(data);
+                    if (data.code === 200 && data.dsnhomquyen) {
+                        let html = "<option></option>";
+                        data.dsnhomquyen.forEach((item) => {
+                            html += `<option value="${item.ID}">${item.tennhomquyen}</option>`;
+                        });
+                        $("#user_nhomquyen").html(html);
+                    }
+                },
+                "json",
+            );
+
+            $("[data-bs-target='#modal-add-user']").click(function (e) {
+                e.preventDefault();
+                clearInputFields();
+                $(".add-user-element").show();
+                $(".update-user-element").hide();
+            });
+            function clearInputFields() {
+                $("#masinhvien").val("");
+                $("#masinhvien").prop("disabled", false);
+                $("#user_email").val("");
+                $("#user_name").val("");
+                $("#user_sdt").val("");
+                $(`input[name="user_gender"]`).prop("checked", false);
+                $("#user_ngaysinh").val("");
+                $("#user_nhomquyen").val(1).trigger("change");
+                $("#user_password").val("");
+                $("#user_status").prop("checked", 1);
+                $("#ps_user_group").val("");
+            }
+
+            function checkUser(id, email) {
+                let result = true;
+                $.ajax({
+                    type: "post",
+                    url: "/admin/nguoidung/CheckNguoiDung",
+                    data: {
+                        manguoidung: id,
+                        email: email,
+                    },
+                    async: false,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.exists == true) {
+                            Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Người dùng đã tồn tại!` });
+                            result = false;
+                        }
+                    }
+                })
+                return result;
+            }
+            $("#btn-add-user").on("click", function (e) {
+                e.preventDefault();
+                let hoten = $("#user_name").val();
+                let mssv = parseInt($("#masinhvien").val());
+                let email = $("#user_email").val();
+                let manhomquyen = parseInt($("#user_nhomquyen").val());
+                let gioitinh = $('input[name="user_gender"]:checked').val() ? "Nam" : "Nữ";
+                let trangthai = $("#user_status").prop("checked") ? 1 : 0;
+                let ngaysinh = $("#user_ngaysinh").val();
+                let sodienthoai = $("#user_sdt").val();
+                console.log({ sodienthoai });
+                if ($(".form-add-user").valid() && checkUser(mssv, email)) {
+                    $.ajax({
+                        type: "post",
+                        url: "/admin/nguoidung/ThemNguoiDung",
+                        data: {
+                            manguoidung: mssv,
+                            hoten: hoten,
+                            sodienthoai: sodienthoai,
+                            gioitinh: gioitinh,
+                            ngaysinh: ngaysinh,
+                            email: email,
+                            manhomquyen: manhomquyen,
+                            matkhau: $("#user_password").val(),
+                            trangthai: trangthai,
+                        },
+                        success: function (response) {
+                            Dashmix.helpers('jq-notify', { type: 'success', icon: 'fa fa-check me-1', message: `Thêm người dùng thành công!` });
+                            $("#modal-add-user").modal("hide");
+                        },
+                    });
+                } else {
+                    Dashmix.helpers('jq-notify', { type: 'danger', icon: 'fa fa-times me-1', message: `Thêm người dùng không thành công!` });
+                }
+            });
+
+            $(document).on("click", ".user-edit", function () {
+                let id = $(this).data("id");
+                $(".add-user-element").hide();
+                $(".update-user-element").show();
+                $("#btn-update-user").data("id", id);
+                const format = new Intl.DateTimeFormat(navigator.language, {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                });
+                $.ajax({
+                    type: "post",
+                    url: "/admin/nguoidung/LayThongTinNguoiDung",
+                    data: {
+                        id: id,
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response.nguoidung);
+                        let gioitinh = 0;
+                        if (response.nguoidung.gioitinh == "Nam") gioitinh = 1;
+                        else gioitinh = 0;
+                        let ngaysinh = "";
+                        if (dateIsValid(response.nguoidung.ngaysinh)) {
+                            const birthday = parseApiDate(response.nguoidung.ngaysinh);
+                            ngaysinh = format.format(birthday);
+                        }
+                        $("#masinhvien").val(response.nguoidung.manguoidung);
+                        $("#masinhvien").prop("disabled", true);
+                        $("#user_name").val(response.nguoidung.hoten),
+                            $(`input[name="user_gender"][value="${gioitinh}"]`).prop(
+                                "checked",
+                                true
+                            ),
+                            $("#user_ngaysinh").val(ngaysinh);
+                        $("#user_email").val(response.nguoidung.email);
+                        $("#user_nhomquyen").val(response.nguoidung.manhomquyen).trigger("change");
+                        $("#user_password").val(response.nguoidung.matkhau);
+                        $("#user_sdt").val(response.nguoidung.sodienthoai);
+                        $("#user_status").prop("checked", response.nguoidung.trangthai == 1);
+                        $("#modal-add-user").modal("show");
+                    },
+                });
+            });
+
+            $(document).on("click", ".user-delete", function () {
+                var trid = $(this).data("id");
+                let e = Swal.mixin({
+                    buttonsStyling: !1,
+                    target: "#page-container",
+                    customClass: {
+                        confirmButton: "btn btn-success m-1",
+                        cancelButton: "btn btn-danger m-1",
+                        input: "form-control",
+                    },
+                });
+                e.fire({
+                    title: "Are you sure?",
+                    text: "Bạn có chắc chắn muốn xoá người dùng này?",
+                    icon: "warning",
+                    showCancelButton: !0,
+                    customClass: {
+                        confirmButton: "btn btn-danger m-1",
+                        cancelButton: "btn btn-secondary m-1",
+                    },
+                    confirmButtonText: "Vâng, tôi chắc chắn!",
+                    html: !1,
+                    preConfirm: (e) =>
+                        new Promise((e) => {
+                            setTimeout(() => {
+                                e();
+                            }, 50);
+                        }),
+                }).then((t) => {
+                    if (t.value == true) {
+                        $.ajax({
+                            type: "post",
+                            url: "/admin/nguoidung/XoaNguoiDung",
+                            data: {
+                                id: trid,
+                            },
+                            success: function (response) {
+                                e.fire("Deleted!", "Xóa người dùng thành công!", "success");
+                              
+                            },
+                        });
+                    } else {
+                        e.fire("Cancelled", "Bạn đã không xóa người dùng :)", "error");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+

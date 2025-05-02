@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="content">
+    <form onsubmit="return false;">
+        <div class="row mb-4">
+            <div class="col-6 flex-grow-1">
+                <div class="input-group">
+                    <button class="btn btn btn-alt-primary dropdown-toggle btn-filter" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        Đang học tập
+                    </button>
+                    <ul class="dropdown-menu mt-1">
+                        <li><a class="dropdown-item filter-search" href="javascript:void(0)" data-id="1">Đang học tập</a></li>
+                        <li>
+                            <a class="dropdown-item filter-search" href="javascript:void(0)" data-id="0">Đã ẩn</a>
+                        </li>
+                    </ul>
+                    <input type="text" class="form-control" placeholder="Tìm kiếm nhóm..." id="form-search-group">
+                </div>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-end gap-3">
+                <button type="button" class="btn btn-hero btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#modal-join-group">
+                    <i class="fa fa-fw fa-plus me-1"></i> Tham gia nhóm
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="row items-push" id="list-groups">
+    </div>
+</div>
+
+<div class="modal fade" id="modal-join-group" tabindex="-1" role="dialog" aria-labelledby="modal-join-group"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="block block-rounded block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Tham gia nhóm học phần</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-fw fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="block-content">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Mã mời</label>
+                        <input type="text" class="form-control form-control-alt" name="mamoi" id="mamoi"
+                               placeholder="Nhập mã mời">
+                    </div>
+                    <p class="form-text text-muted">
+                        Đề nghị giảng viên của bạn cung cấp mã lớp rồi
+                        nhập mã đó vào đây.
+                    </p>
+                    <p class="form-text text-muted">
+                        Cách đăng nhập bằng mã lớp học<br>
+                        - Sử dụng tài khoản được cấp phép <br>
+                        - Sử dụng mã lớp học gồm 7 chữ cái hoặc số, không có dấu cách hoặc ký hiệu
+                    </p>
+                </div>
+                <div class="block-content block-content-full text-end bg-body">
+                    <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-sm btn-primary btn-join-group">Tham gia nhóm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Lập trình Java - NH2023 - HK2 - Nhóm 2</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body content-side">
+        <div class="block block-transparent pull-x pull-t mb-0">
+            <ul class="nav nav-tabs nav-tabs-block nav-justified" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="so-settings-tab" data-bs-toggle="tab"
+                            data-bs-target="#so-settings" role="tab" aria-controls="so-settings" aria-selected="true">
+                        <i class="fa fa-fw fa-cog me-2"></i> Đề kiểm tra
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="so-profile-tab" data-bs-toggle="tab" data-bs-target="#so-profile"
+                            role="tab" aria-controls="so-profile" aria-selected="false" tabindex="-1">
+                        <i class="fa fa-fw fa-bell me-2"></i> Thông báo
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="so-people-tab" data-bs-toggle="tab" data-bs-target="#so-people"
+                            role="tab" aria-controls="so-people" aria-selected="false" tabindex="-1">
+                        <i class="far fa-fw fa-user-circle me-2"></i> Bạn bè
+                    </button>
+                </li>
+            </ul>
+            <div class="block-content tab-content overflow-hidden">
+                <div class="tab-pane pull-x fade fade-up show active" id="so-settings" role="tabpanel"
+                     aria-labelledby="so-settings-tab" tabindex="0">
+                    <div class="list-test px-2">
+                        <div class="block block-rounded block-fx-pop mb-2">
+                            <div class="block-content block-content-full border-start border-3 border-primary">
+                                <div class="d-md-flex justify-content-md-between align-items-md-center">
+                                    <div class="p-1 p-md-2">
+                                        <h3 class="h4 fw-bold mb-3">
+                                            <a href="./test/start/1" class="text-dark link-fx">Kiểm tra giữa kì</a>
+                                        </h3>
+                                        <p class="fs-sm text-muted mb-0">
+                                            <i class="fa fa-clock me-1"></i> Diễn ra từ <span>12:00 08/03/2023</span>
+                                            đến
+                                            <span>12:00 09/03/2023</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" tab-pane pull-x fade fade-up" id="so-profile" role="tabpanel"
+                     aria-labelledby="so-profile-tab" tabindex="0">
+                    <ul class="list-announce nav-items my-2">
+                        <p class="text-center">Không có thông báo</p>
+                    </ul>
+                </div>
+                <div class="tab-pane pull-x fade fade-up" id="so-people" role="tabpanel" aria-labelledby="so-people-tab"
+                     tabindex="0">
+                    <div class="block mb-0">
+                        <div class="block-content block-content-sm block-content-full bg-body">
+                            <span class="text-uppercase fs-sm fw-bold">Bạn cùng nhóm</span>
+                        </div>
+                        <div class="block-content">
+                            <ul class="nav-items list-friends">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        Dashmix.helpersOnLoad(["jq-select2"]);
+        $(document).ready(function () {
+            let nhoms = [];
+            let mode = 1;
+            function LoadDsNhom(hienthi) {
+                $.ajax({
+                    type: "get",
+                    url: "/admin/nhom/DsNhom",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code === 200 && data.dsnhom) {
+                            nhoms = data.dsnhom;
+                            showDsNhom(nhoms);
+                        }
+                    }
+                });
+            }
+            LoadDsNhom(mode)
+            function showDsNhom(nhoms) {
+                let html = '';
+                if (nhoms.length == 0) {
+                    html += '<p class="text-center">Chưa tham gia lớp nào</p>'
+                } else {
+                    console.log(nhoms);
+                    nhoms.forEach((nhom, index) => {
+
+                        let btn_hide = nhom.trangthai == 1 ? '<a class="dropdown-item btn-hide-group" href="javascript:void(0)"><i class="nav-main-link-icon si si-eye me-2 text-dark"></i> Ẩn nhóm</a>'
+                            : `<a class="dropdown-item btn-unhide-group" data-id="${nhom.ID}" href="javascript:void(0)"><i class="nav-main-link-icon si si-action-undo me-2 text-dark"></i> Huỷ ẩn</a>`
+                        html += `<div class="col-md-6 col-xl-4">
+                            <div class="block block-rounded h-100 mb-0">
+                                <div class="block-header">
+                                    <div class="flex-grow-1 text-muted fs-sm fw-semibold">                                     
+                                        <span>${nhom.tennhom}</span>
+                                    </div>
+                                    <div class="block-options">
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-alt-secondary dropdown-toggle module__dropdown"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="si si-settings"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                ${btn_hide}
+                                                <a class="dropdown-item btn-delete-group" href="javascript:void(0)">
+                                                    <i class="si si-logout me-2 fa-fw icon-dropdown-item"></i>
+                                                    Thoát nhóm
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block-content bg-body-light text-center">
+                                     <h3 class="fs-4 mb-3">
+                                     <a href="javascript:void(0)" class="text-dark">${nhom.mamonhoc}</a>
+                                     </h3>
+                                     <h5 class="text-muted mb-3" style="font-size:13px">NĂM HỌC ${nhom.namhoc} - HỌC KỲ ${nhom.hocky}</h5>
+                                     <div class="push">
+                                        <span class="badge bg-info text-uppercase fw-bold py-2 px-3">${nhom.tennhom}</span>
+                                     </div>
+                                </div>
+                                <div class="block-content block-content-full">
+                                    <div class="row g-sm">
+                                        <div class="col-12">
+                                            <button class="btn w-100 btn-alt-secondary btn-view-group" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                                            aria-controls="offcanvasExample" data-id="${nhom.ID}" data-index="${index}">
+                                                <i class="fa fa-eye me-1 opacity-50"></i> Xem nhóm
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                    });                  
+                }
+                $("#list-groups").html(html);
+            }
+            $(document).on('click', ".btn-view-group", function () {
+                let manhom = $(this).data("id");
+                let index = $(this).data("index");
+
+                $(".offcanvas-title").text(`${nhoms[index].mamonhoc} - NH${nhoms[index].namhoc} - HK${nhoms[index].hocky} - ${nhoms[index].tennhom}`)
+            });
+
+            $(".filter-search").click(function (e) {
+                e.preventDefault();
+                mode = $(this).data("id");
+                $(".btn-filter").text($(this).text());
+                LoadDsNhom(mode)
+            });
+        })
+    </script>
+}

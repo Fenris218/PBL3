@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Nhập mã OTP";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Xác minh mã OTP</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div style="color: red;">@ViewBag.Error</div>
+}
+
+<form method="post" action="/Admin/Authentication/Otp">
+    <input type="hidden" name="token" value="@ViewBag.Token" />
+    <label for="otp">Mã OTP:</label>
+    <input type="text" name="otp" required placeholder="Nhập mã OTP" />
+    <button type="submit">Xác minh</button>
+</form>
