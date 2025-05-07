@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PBL3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="cauhoi">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="noidung" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="madokho" Type="Int32" Nullable="false" />
+    <Property Name="mamonhoc" Type="Int32" Nullable="false" />
+    <Property Name="machuong" Type="Int32" Nullable="false" />
+    <Property Name="nguoitao" Type="Int32" />
+    <Property Name="trangthai" Type="Int32" />
+    <NavigationProperty Name="chuong" Relationship="Self.FK_cauhoi_chuong" FromRole="cauhoi" ToRole="chuong" />
+    <NavigationProperty Name="dokho" Relationship="Self.FK_cauhoi_dokho" FromRole="cauhoi" ToRole="dokho" />
+    <NavigationProperty Name="monhoc" Relationship="Self.FK_cauhoi_monhoc" FromRole="cauhoi" ToRole="monhoc" />
+    <NavigationProperty Name="nguoidung" Relationship="Self.FK_cauhoi_nguoidung" FromRole="cauhoi" ToRole="nguoidung" />
+    <NavigationProperty Name="chitietdethis" Relationship="Self.FK_chitietdethi_cauhoi" FromRole="cauhoi" ToRole="chitietdethi" />
+    <NavigationProperty Name="chitietketquas" Relationship="Self.FK_chitietketqua_cauhoi" FromRole="cauhoi" ToRole="chitietketqua" />
+    <NavigationProperty Name="tralois" Relationship="Self.FK_traloi_cauhoi" FromRole="cauhoi" ToRole="traloi" />
+  </EntityType>
+  <EntityType Name="chitietdethi">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="macauhoi" Type="Int32" Nullable="false" />
+    <Property Name="made" Type="Int32" Nullable="false" />
+    <Property Name="thutu" Type="Int32" />
+    <NavigationProperty Name="cauhoi" Relationship="Self.FK_chitietdethi_cauhoi" FromRole="chitietdethi" ToRole="cauhoi" />
+    <NavigationProperty Name="dethi" Relationship="Self.FK_chitietdethi_dethi" FromRole="chitietdethi" ToRole="dethi" />
+  </EntityType>
+  <EntityType Name="chitietketqua">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="maketqua" Type="Int32" />
+    <Property Name="macauhoi" Type="Int32" />
+    <Property Name="dapanchon" Type="Int32" />
+    <NavigationProperty Name="cauhoi" Relationship="Self.FK_chitietketqua_cauhoi" FromRole="chitietketqua" ToRole="cauhoi" />
+    <NavigationProperty Name="traloi" Relationship="Self.FK_chitietketqua_traloi" FromRole="chitietketqua" ToRole="traloi" />
+  </EntityType>
+  <EntityType Name="chitietquyen">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="manhomquyen" Type="Int32" Nullable="false" />
+    <Property Name="chucnang" Type="Int32" Nullable="false" />
+    <Property Name="hanhdong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="danhmucchucnang" Relationship="Self.FK_chitietquyen_danhmucchucnang" FromRole="chitietquyen" ToRole="danhmucchucnang" />
+    <NavigationProperty Name="nhomquyen" Relationship="Self.FK_chitietquyen_nhomquyen" FromRole="chitietquyen" ToRole="nhomquyen" />
+  </EntityType>
+  <EntityType Name="chitietthongbao">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="mathongbao" Type="Int32" Nullable="false" />
+    <Property Name="manhom" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="nhom" Relationship="Self.FK_chitietthongbao_nhom" FromRole="chitietthongbao" ToRole="nhom" />
+    <NavigationProperty Name="thongbao" Relationship="Self.FK_chitietthongbao_thongbao" FromRole="chitietthongbao" ToRole="thongbao" />
+  </EntityType>
+  <EntityType Name="chuong">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenchuong" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="mamonhoc" Type="Int32" Nullable="false" />
+    <Property Name="trangthai" Type="Int32" />
+    <NavigationProperty Name="cauhois" Relationship="Self.FK_cauhoi_chuong" FromRole="chuong" ToRole="cauhoi" />
+    <NavigationProperty Name="monhoc" Relationship="Self.FK_chuong_monhoc" FromRole="chuong" ToRole="monhoc" />
+    <NavigationProperty Name="dethitudongs" Relationship="Self.FK_dethitudong_chuong" FromRole="chuong" ToRole="dethitudong" />
+  </EntityType>
+  <EntityType Name="danhmucchucnang">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="chucnang" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="tenchucnang" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="chitietquyens" Relationship="Self.FK_chitietquyen_danhmucchucnang" FromRole="danhmucchucnang" ToRole="chitietquyen" />
+  </EntityType>
+  <EntityType Name="dethi">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="mamon" Type="Int32" />
+    <Property Name="nguoitao" Type="Int32" />
+    <Property Name="tende" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="thoigiantao" Type="DateTime" Precision="3" />
+    <Property Name="thoigianthi" Type="Int32" />
+    <Property Name="thoigianbatdau" Type="DateTime" Precision="3" />
+    <Property Name="thoigianketthuc" Type="DateTime" Precision="3" />
+    <Property Name="hienthibailam" Type="Boolean" />
+    <Property Name="xemdiemthi" Type="Boolean" />
+    <Property Name="xemdapan" Type="Boolean" />
+    <Property Name="troncauhoi" Type="Boolean" />
+    <Property Name="trondapan" Type="Boolean" />
+    <Property Name="nopbaichuyentab" Type="Boolean" />
+    <Property Name="socaude" Type="Int32" />
+    <Property Name="socautb" Type="Int32" />
+    <Property Name="socaukho" Type="Int32" />
+    <Property Name="trangthai" Type="Int32" />
+    <Property Name="loaide" Type="Int32" />
+    <NavigationProperty Name="chitietdethis" Relationship="Self.FK_chitietdethi_dethi" FromRole="dethi" ToRole="chitietdethi" />
+    <NavigationProperty Name="monhoc" Relationship="Self.FK_dethi_monhoc" FromRole="dethi" ToRole="monhoc" />
+    <NavigationProperty Name="nguoidung" Relationship="Self.FK_dethi_nguoidung" FromRole="dethi" ToRole="nguoidung" />
+    <NavigationProperty Name="dethitudongs" Relationship="Self.FK_dethitudong_dethi" FromRole="dethi" ToRole="dethitudong" />
+  </EntityType>
+  <EntityType Name="dethitudong">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="made" Type="Int32" Nullable="false" />
+    <Property Name="machuong" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="chuong" Relationship="Self.FK_dethitudong_chuong" FromRole="dethitudong" ToRole="chuong" />
+    <NavigationProperty Name="dethi" Relationship="Self.FK_dethitudong_dethi" FromRole="dethitudong" ToRole="dethi" />
+  </EntityType>
+  <EntityType Name="dokho">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tendokho" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="cauhois" Relationship="Self.FK_cauhoi_dokho" FromRole="dokho" ToRole="cauhoi" />
+  </EntityType>
+  <EntityType Name="giaodethi">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="manhom" Type="Int32" Nullable="false" />
+    <Property Name="made" Type="Int32" Nullable="false" />
+    <Property Name="maketqua" Type="Int32" Nullable="false" />
+    <Property Name="makq" Type="Int32" Nullable="false" />
+    <Property Name="manguoidung" Type="Int32" Nullable="false" />
+    <Property Name="diemthi" Type="Single" />
+    <Property Name="thoigianvaothi" Type="DateTime" Precision="3" />
+    <Property Name="thoigianlambai" Type="Int32" />
+    <Property Name="socaudung" Type="Int32" />
+    <Property Name="solanchuyentab" Type="Int32" />
+  </EntityType>
+  <EntityType Name="monhoc">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenmonhoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="sotinchi" Type="Int32" />
+    <Property Name="sotietlithuyet" Type="Int32" />
+    <Property Name="sotietthuchanh" Type="Int32" />
+    <Property Name="trangthai" Type="Int32" />
+    <Property Name="mamonhoc" Type="Int32" />
+    <NavigationProperty Name="cauhois" Relationship="Self.FK_cauhoi_monhoc" FromRole="monhoc" ToRole="cauhoi" />
+    <NavigationProperty Name="chuongs" Relationship="Self.FK_chuong_monhoc" FromRole="monhoc" ToRole="chuong" />
+    <NavigationProperty Name="dethis" Relationship="Self.FK_dethi_monhoc" FromRole="monhoc" ToRole="dethi" />
+    <NavigationProperty Name="nhoms" Relationship="Self.FK_nhom_monhoc" FromRole="monhoc" ToRole="nhom" />
+    <NavigationProperty Name="phancongs" Relationship="Self.FK_phancong_monhoc" FromRole="monhoc" ToRole="phancong" />
+  </EntityType>
+  <EntityType Name="nguoidung">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="hoten" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="gioitinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ngaysinh" Type="DateTime" Precision="3" />
+    <Property Name="avatar" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ngaythamgia" Type="DateTime" Precision="3" />
+    <Property Name="matkhau" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="trangthai" Type="Int32" />
+    <Property Name="sodienthoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="token" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="otp" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="manhomquyen" Type="Int32" />
+    <Property Name="manguoidung" Type="Int32" />
+    <NavigationProperty Name="cauhois" Relationship="Self.FK_cauhoi_nguoidung" FromRole="nguoidung" ToRole="cauhoi" />
+    <NavigationProperty Name="dethis" Relationship="Self.FK_dethi_nguoidung" FromRole="nguoidung" ToRole="dethi" />
+    <NavigationProperty Name="chitietnhoms" Relationship="Self.FK_chitietnhom_nguoidung" FromRole="nguoidung" ToRole="chitietnhom" />
+    <NavigationProperty Name="nhomquyen" Relationship="Self.FK_nguoidung_nhomquyen" FromRole="nguoidung" ToRole="nhomquyen" />
+    <NavigationProperty Name="phancongs" Relationship="Self.FK_phancong_nguoidung" FromRole="nguoidung" ToRole="phancong" />
+  </EntityType>
+  <EntityType Name="nhom">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tennhom" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="mamoi" Type="Int32" />
+    <Property Name="siso" Type="Int32" />
+    <Property Name="ghichu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="namhoc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="hocky" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="trangthai" Type="Int32" />
+    <Property Name="hienthi" Type="Int32" />
+    <Property Name="giangvien" Type="Int32" Nullable="false" />
+    <Property Name="mamonhoc" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="chitietthongbaos" Relationship="Self.FK_chitietthongbao_nhom" FromRole="nhom" ToRole="chitietthongbao" />
+    <NavigationProperty Name="monhoc" Relationship="Self.FK_nhom_monhoc" FromRole="nhom" ToRole="monhoc" />
+    <NavigationProperty Name="chitietnhoms" Relationship="Self.FK_chitietnhom_nhom" FromRole="nhom" ToRole="chitietnhom" />
+  </EntityType>
+  <EntityType Name="nhomquyen">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tennhomquyen" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="trangthai" Type="Int32" />
+    <NavigationProperty Name="chitietquyens" Relationship="Self.FK_chitietquyen_nhomquyen" FromRole="nhomquyen" ToRole="chitietquyen" />
+    <NavigationProperty Name="nguoidungs" Relationship="Self.FK_nguoidung_nhomquyen" FromRole="nhomquyen" ToRole="nguoidung" />
+  </EntityType>
+  <EntityType Name="phancong">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="mamonhoc" Type="Int32" Nullable="false" />
+    <Property Name="manguoidung" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="monhoc" Relationship="Self.FK_phancong_monhoc" FromRole="phancong" ToRole="monhoc" />
+    <NavigationProperty Name="nguoidung" Relationship="Self.FK_phancong_nguoidung" FromRole="phancong" ToRole="nguoidung" />
+  </EntityType>
+  <EntityType Name="thongbao">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="noidung" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="thoigiantao" Type="DateTime" Precision="3" />
+    <Property Name="nguoitao" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="chitietthongbaos" Relationship="Self.FK_chitietthongbao_thongbao" FromRole="thongbao" ToRole="chitietthongbao" />
+  </EntityType>
+  <EntityType Name="traloi">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="macauhoi" Type="Int32" Nullable="false" />
+    <Property Name="noidung" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ladapan" Type="Boolean" Nullable="false" />
+    <Property Name="trangthai" Type="Int32" />
+    <NavigationProperty Name="cauhoi" Relationship="Self.FK_traloi_cauhoi" FromRole="traloi" ToRole="cauhoi" />
+    <NavigationProperty Name="chitietketquas" Relationship="Self.FK_chitietketqua_traloi" FromRole="traloi" ToRole="chitietketqua" />
+  </EntityType>
+  <EntityType Name="chitietnhom">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="manhom" Type="Int32" />
+    <Property Name="manguoidung" Type="Int32" />
+    <Property Name="hienthi" Type="Int32" />
+    <NavigationProperty Name="nguoidung" Relationship="Self.FK_chitietnhom_nguoidung" FromRole="chitietnhom" ToRole="nguoidung" />
+    <NavigationProperty Name="nhom" Relationship="Self.FK_chitietnhom_nhom" FromRole="chitietnhom" ToRole="nhom" />
+  </EntityType>
+  <Association Name="FK_cauhoi_chuong">
+    <End Role="chuong" Type="Self.chuong" Multiplicity="1" />
+    <End Role="cauhoi" Type="Self.cauhoi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="chuong">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="cauhoi">
+        <PropertyRef Name="machuong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cauhoi_dokho">
+    <End Role="dokho" Type="Self.dokho" Multiplicity="1" />
+    <End Role="cauhoi" Type="Self.cauhoi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dokho">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="cauhoi">
+        <PropertyRef Name="madokho" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cauhoi_monhoc">
+    <End Role="monhoc" Type="Self.monhoc" Multiplicity="1" />
+    <End Role="cauhoi" Type="Self.cauhoi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="monhoc">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="cauhoi">
+        <PropertyRef Name="mamonhoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cauhoi_nguoidung">
+    <End Role="nguoidung" Type="Self.nguoidung" Multiplicity="0..1" />
+    <End Role="cauhoi" Type="Self.cauhoi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nguoidung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="cauhoi">
+        <PropertyRef Name="nguoitao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chitietdethi_cauhoi">
+    <End Role="cauhoi" Type="Self.cauhoi" Multiplicity="1" />
+    <End Role="chitietdethi" Type="Self.chitietdethi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cauhoi">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chitietdethi">
+        <PropertyRef Name="macauhoi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chitietketqua_cauhoi">
+    <End Role="cauhoi" Type="Self.cauhoi" Multiplicity="0..1" />
+    <End Role="chitietketqua" Type="Self.chitietketqua" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cauhoi">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chitietketqua">
+        <PropertyRef Name="macauhoi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_traloi_cauhoi">
+    <End Role="cauhoi" Type="Self.cauhoi" Multiplicity="1" />
+    <End Role="traloi" Type="Self.traloi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cauhoi">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="traloi">
+        <PropertyRef Name="macauhoi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chitietdethi_dethi">
+    <End Role="dethi" Type="Self.dethi" Multiplicity="1" />
+    <End Role="chitietdethi" Type="Self.chitietdethi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dethi">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chitietdethi">
+        <PropertyRef Name="made" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chitietketqua_traloi">
+    <End Role="traloi" Type="Self.traloi" Multiplicity="0..1" />
+    <End Role="chitietketqua" Type="Self.chitietketqua" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="traloi">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chitietketqua">
+        <PropertyRef Name="maketqua" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chitietquyen_danhmucchucnang">
+    <End Role="danhmucchucnang" Type="Self.danhmucchucnang" Multiplicity="1" />
+    <End Role="chitietquyen" Type="Self.chitietquyen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="danhmucchucnang">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chitietquyen">
+        <PropertyRef Name="chucnang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chitietquyen_nhomquyen">
+    <End Role="nhomquyen" Type="Self.nhomquyen" Multiplicity="1" />
+    <End Role="chitietquyen" Type="Self.chitietquyen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nhomquyen">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chitietquyen">
+        <PropertyRef Name="manhomquyen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chitietthongbao_nhom">
+    <End Role="nhom" Type="Self.nhom" Multiplicity="1" />
+    <End Role="chitietthongbao" Type="Self.chitietthongbao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nhom">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chitietthongbao">
+        <PropertyRef Name="manhom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chitietthongbao_thongbao">
+    <End Role="thongbao" Type="Self.thongbao" Multiplicity="1" />
+    <End Role="chitietthongbao" Type="Self.chitietthongbao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="thongbao">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chitietthongbao">
+        <PropertyRef Name="mathongbao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chuong_monhoc">
+    <End Role="monhoc" Type="Self.monhoc" Multiplicity="1" />
+    <End Role="chuong" Type="Self.chuong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="monhoc">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chuong">
+        <PropertyRef Name="mamonhoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dethitudong_chuong">
+    <End Role="chuong" Type="Self.chuong" Multiplicity="1" />
+    <End Role="dethitudong" Type="Self.dethitudong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="chuong">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="dethitudong">
+        <PropertyRef Name="machuong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dethi_monhoc">
+    <End Role="monhoc" Type="Self.monhoc" Multiplicity="0..1" />
+    <End Role="dethi" Type="Self.dethi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="monhoc">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="dethi">
+        <PropertyRef Name="mamon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dethi_nguoidung">
+    <End Role="nguoidung" Type="Self.nguoidung" Multiplicity="0..1" />
+    <End Role="dethi" Type="Self.dethi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nguoidung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="dethi">
+        <PropertyRef Name="nguoitao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dethitudong_dethi">
+    <End Role="dethi" Type="Self.dethi" Multiplicity="1" />
+    <End Role="dethitudong" Type="Self.dethitudong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="dethi">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="dethitudong">
+        <PropertyRef Name="made" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_nhom_monhoc">
+    <End Role="monhoc" Type="Self.monhoc" Multiplicity="1" />
+    <End Role="nhom" Type="Self.nhom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="monhoc">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="nhom">
+        <PropertyRef Name="mamonhoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_phancong_monhoc">
+    <End Role="monhoc" Type="Self.monhoc" Multiplicity="1" />
+    <End Role="phancong" Type="Self.phancong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="monhoc">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="phancong">
+        <PropertyRef Name="mamonhoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chitietnhom_nguoidung">
+    <End Role="nguoidung" Type="Self.nguoidung" Multiplicity="0..1" />
+    <End Role="chitietnhom" Type="Self.chitietnhom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nguoidung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chitietnhom">
+        <PropertyRef Name="manguoidung" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_nguoidung_nhomquyen">
+    <End Role="nhomquyen" Type="Self.nhomquyen" Multiplicity="0..1" />
+    <End Role="nguoidung" Type="Self.nguoidung" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nhomquyen">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="nguoidung">
+        <PropertyRef Name="manhomquyen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_phancong_nguoidung">
+    <End Role="nguoidung" Type="Self.nguoidung" Multiplicity="1" />
+    <End Role="phancong" Type="Self.phancong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nguoidung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="phancong">
+        <PropertyRef Name="manguoidung" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_chitietnhom_nhom">
+    <End Role="nhom" Type="Self.nhom" Multiplicity="0..1" />
+    <End Role="chitietnhom" Type="Self.chitietnhom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nhom">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="chitietnhom">
+        <PropertyRef Name="manhom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PBL3Entities6" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="cauhois" EntityType="Self.cauhoi" />
+    <EntitySet Name="chitietdethis" EntityType="Self.chitietdethi" />
+    <EntitySet Name="chitietketquas" EntityType="Self.chitietketqua" />
+    <EntitySet Name="chitietquyens" EntityType="Self.chitietquyen" />
+    <EntitySet Name="chitietthongbaos" EntityType="Self.chitietthongbao" />
+    <EntitySet Name="chuongs" EntityType="Self.chuong" />
+    <EntitySet Name="danhmucchucnangs" EntityType="Self.danhmucchucnang" />
+    <EntitySet Name="dethis" EntityType="Self.dethi" />
+    <EntitySet Name="dethitudongs" EntityType="Self.dethitudong" />
+    <EntitySet Name="dokhoes" EntityType="Self.dokho" />
+    <EntitySet Name="giaodethis" EntityType="Self.giaodethi" />
+    <EntitySet Name="monhocs" EntityType="Self.monhoc" />
+    <EntitySet Name="nguoidungs" EntityType="Self.nguoidung" />
+    <EntitySet Name="nhoms" EntityType="Self.nhom" />
+    <EntitySet Name="nhomquyens" EntityType="Self.nhomquyen" />
+    <EntitySet Name="phancongs" EntityType="Self.phancong" />
+    <EntitySet Name="thongbaos" EntityType="Self.thongbao" />
+    <EntitySet Name="tralois" EntityType="Self.traloi" />
+    <EntitySet Name="chitietnhoms" EntityType="Self.chitietnhom" />
+    <AssociationSet Name="FK_cauhoi_chuong" Association="Self.FK_cauhoi_chuong">
+      <End Role="chuong" EntitySet="chuongs" />
+      <End Role="cauhoi" EntitySet="cauhois" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cauhoi_dokho" Association="Self.FK_cauhoi_dokho">
+      <End Role="dokho" EntitySet="dokhoes" />
+      <End Role="cauhoi" EntitySet="cauhois" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cauhoi_monhoc" Association="Self.FK_cauhoi_monhoc">
+      <End Role="monhoc" EntitySet="monhocs" />
+      <End Role="cauhoi" EntitySet="cauhois" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cauhoi_nguoidung" Association="Self.FK_cauhoi_nguoidung">
+      <End Role="nguoidung" EntitySet="nguoidungs" />
+      <End Role="cauhoi" EntitySet="cauhois" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chitietdethi_cauhoi" Association="Self.FK_chitietdethi_cauhoi">
+      <End Role="cauhoi" EntitySet="cauhois" />
+      <End Role="chitietdethi" EntitySet="chitietdethis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chitietketqua_cauhoi" Association="Self.FK_chitietketqua_cauhoi">
+      <End Role="cauhoi" EntitySet="cauhois" />
+      <End Role="chitietketqua" EntitySet="chitietketquas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_traloi_cauhoi" Association="Self.FK_traloi_cauhoi">
+      <End Role="cauhoi" EntitySet="cauhois" />
+      <End Role="traloi" EntitySet="tralois" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chitietdethi_dethi" Association="Self.FK_chitietdethi_dethi">
+      <End Role="dethi" EntitySet="dethis" />
+      <End Role="chitietdethi" EntitySet="chitietdethis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chitietketqua_traloi" Association="Self.FK_chitietketqua_traloi">
+      <End Role="traloi" EntitySet="tralois" />
+      <End Role="chitietketqua" EntitySet="chitietketquas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chitietquyen_danhmucchucnang" Association="Self.FK_chitietquyen_danhmucchucnang">
+      <End Role="danhmucchucnang" EntitySet="danhmucchucnangs" />
+      <End Role="chitietquyen" EntitySet="chitietquyens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chitietquyen_nhomquyen" Association="Self.FK_chitietquyen_nhomquyen">
+      <End Role="nhomquyen" EntitySet="nhomquyens" />
+      <End Role="chitietquyen" EntitySet="chitietquyens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chitietthongbao_nhom" Association="Self.FK_chitietthongbao_nhom">
+      <End Role="nhom" EntitySet="nhoms" />
+      <End Role="chitietthongbao" EntitySet="chitietthongbaos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chitietthongbao_thongbao" Association="Self.FK_chitietthongbao_thongbao">
+      <End Role="thongbao" EntitySet="thongbaos" />
+      <End Role="chitietthongbao" EntitySet="chitietthongbaos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chuong_monhoc" Association="Self.FK_chuong_monhoc">
+      <End Role="monhoc" EntitySet="monhocs" />
+      <End Role="chuong" EntitySet="chuongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dethitudong_chuong" Association="Self.FK_dethitudong_chuong">
+      <End Role="chuong" EntitySet="chuongs" />
+      <End Role="dethitudong" EntitySet="dethitudongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dethi_monhoc" Association="Self.FK_dethi_monhoc">
+      <End Role="monhoc" EntitySet="monhocs" />
+      <End Role="dethi" EntitySet="dethis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dethi_nguoidung" Association="Self.FK_dethi_nguoidung">
+      <End Role="nguoidung" EntitySet="nguoidungs" />
+      <End Role="dethi" EntitySet="dethis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dethitudong_dethi" Association="Self.FK_dethitudong_dethi">
+      <End Role="dethi" EntitySet="dethis" />
+      <End Role="dethitudong" EntitySet="dethitudongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_nhom_monhoc" Association="Self.FK_nhom_monhoc">
+      <End Role="monhoc" EntitySet="monhocs" />
+      <End Role="nhom" EntitySet="nhoms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_phancong_monhoc" Association="Self.FK_phancong_monhoc">
+      <End Role="monhoc" EntitySet="monhocs" />
+      <End Role="phancong" EntitySet="phancongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chitietnhom_nguoidung" Association="Self.FK_chitietnhom_nguoidung">
+      <End Role="nguoidung" EntitySet="nguoidungs" />
+      <End Role="chitietnhom" EntitySet="chitietnhoms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_nguoidung_nhomquyen" Association="Self.FK_nguoidung_nhomquyen">
+      <End Role="nhomquyen" EntitySet="nhomquyens" />
+      <End Role="nguoidung" EntitySet="nguoidungs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_phancong_nguoidung" Association="Self.FK_phancong_nguoidung">
+      <End Role="nguoidung" EntitySet="nguoidungs" />
+      <End Role="phancong" EntitySet="phancongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_chitietnhom_nhom" Association="Self.FK_chitietnhom_nhom">
+      <End Role="nhom" EntitySet="nhoms" />
+      <End Role="chitietnhom" EntitySet="chitietnhoms" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

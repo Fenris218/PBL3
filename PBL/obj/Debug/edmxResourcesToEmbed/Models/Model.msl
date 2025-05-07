@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PBL3ModelStoreContainer" CdmEntityContainer="PBL3Entities6">
+    <EntitySetMapping Name="cauhois">
+      <EntityTypeMapping TypeName="PBL3Model.cauhoi">
+        <MappingFragment StoreEntitySet="cauhoi">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="noidung" ColumnName="noidung" />
+          <ScalarProperty Name="madokho" ColumnName="madokho" />
+          <ScalarProperty Name="mamonhoc" ColumnName="mamonhoc" />
+          <ScalarProperty Name="machuong" ColumnName="machuong" />
+          <ScalarProperty Name="nguoitao" ColumnName="nguoitao" />
+          <ScalarProperty Name="trangthai" ColumnName="trangthai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chitietdethis">
+      <EntityTypeMapping TypeName="PBL3Model.chitietdethi">
+        <MappingFragment StoreEntitySet="chitietdethi">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="macauhoi" ColumnName="macauhoi" />
+          <ScalarProperty Name="made" ColumnName="made" />
+          <ScalarProperty Name="thutu" ColumnName="thutu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chitietketquas">
+      <EntityTypeMapping TypeName="PBL3Model.chitietketqua">
+        <MappingFragment StoreEntitySet="chitietketqua">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="maketqua" ColumnName="maketqua" />
+          <ScalarProperty Name="macauhoi" ColumnName="macauhoi" />
+          <ScalarProperty Name="dapanchon" ColumnName="dapanchon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chitietquyens">
+      <EntityTypeMapping TypeName="PBL3Model.chitietquyen">
+        <MappingFragment StoreEntitySet="chitietquyen">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="manhomquyen" ColumnName="manhomquyen" />
+          <ScalarProperty Name="chucnang" ColumnName="chucnang" />
+          <ScalarProperty Name="hanhdong" ColumnName="hanhdong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chitietthongbaos">
+      <EntityTypeMapping TypeName="PBL3Model.chitietthongbao">
+        <MappingFragment StoreEntitySet="chitietthongbao">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="mathongbao" ColumnName="mathongbao" />
+          <ScalarProperty Name="manhom" ColumnName="manhom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chuongs">
+      <EntityTypeMapping TypeName="PBL3Model.chuong">
+        <MappingFragment StoreEntitySet="chuong">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="tenchuong" ColumnName="tenchuong" />
+          <ScalarProperty Name="mamonhoc" ColumnName="mamonhoc" />
+          <ScalarProperty Name="trangthai" ColumnName="trangthai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="danhmucchucnangs">
+      <EntityTypeMapping TypeName="PBL3Model.danhmucchucnang">
+        <MappingFragment StoreEntitySet="danhmucchucnang">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="chucnang" ColumnName="chucnang" />
+          <ScalarProperty Name="tenchucnang" ColumnName="tenchucnang" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dethis">
+      <EntityTypeMapping TypeName="PBL3Model.dethi">
+        <MappingFragment StoreEntitySet="dethi">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="mamon" ColumnName="mamon" />
+          <ScalarProperty Name="nguoitao" ColumnName="nguoitao" />
+          <ScalarProperty Name="tende" ColumnName="tende" />
+          <ScalarProperty Name="thoigiantao" ColumnName="thoigiantao" />
+          <ScalarProperty Name="thoigianthi" ColumnName="thoigianthi" />
+          <ScalarProperty Name="thoigianbatdau" ColumnName="thoigianbatdau" />
+          <ScalarProperty Name="thoigianketthuc" ColumnName="thoigianketthuc" />
+          <ScalarProperty Name="hienthibailam" ColumnName="hienthibailam" />
+          <ScalarProperty Name="xemdiemthi" ColumnName="xemdiemthi" />
+          <ScalarProperty Name="xemdapan" ColumnName="xemdapan" />
+          <ScalarProperty Name="troncauhoi" ColumnName="troncauhoi" />
+          <ScalarProperty Name="trondapan" ColumnName="trondapan" />
+          <ScalarProperty Name="nopbaichuyentab" ColumnName="nopbaichuyentab" />
+          <ScalarProperty Name="socaude" ColumnName="socaude" />
+          <ScalarProperty Name="socautb" ColumnName="socautb" />
+          <ScalarProperty Name="socaukho" ColumnName="socaukho" />
+          <ScalarProperty Name="trangthai" ColumnName="trangthai" />
+          <ScalarProperty Name="loaide" ColumnName="loaide" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dethitudongs">
+      <EntityTypeMapping TypeName="PBL3Model.dethitudong">
+        <MappingFragment StoreEntitySet="dethitudong">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="made" ColumnName="made" />
+          <ScalarProperty Name="machuong" ColumnName="machuong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dokhoes">
+      <EntityTypeMapping TypeName="PBL3Model.dokho">
+        <MappingFragment StoreEntitySet="dokho">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="tendokho" ColumnName="tendokho" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="giaodethis">
+      <EntityTypeMapping TypeName="PBL3Model.giaodethi">
+        <MappingFragment StoreEntitySet="giaodethi">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="manhom" ColumnName="manhom" />
+          <ScalarProperty Name="made" ColumnName="made" />
+          <ScalarProperty Name="maketqua" ColumnName="maketqua" />
+          <ScalarProperty Name="makq" ColumnName="makq" />
+          <ScalarProperty Name="manguoidung" ColumnName="manguoidung" />
+          <ScalarProperty Name="diemthi" ColumnName="diemthi" />
+          <ScalarProperty Name="thoigianvaothi" ColumnName="thoigianvaothi" />
+          <ScalarProperty Name="thoigianlambai" ColumnName="thoigianlambai" />
+          <ScalarProperty Name="socaudung" ColumnName="socaudung" />
+          <ScalarProperty Name="solanchuyentab" ColumnName="solanchuyentab" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="monhocs">
+      <EntityTypeMapping TypeName="PBL3Model.monhoc">
+        <MappingFragment StoreEntitySet="monhoc">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="tenmonhoc" ColumnName="tenmonhoc" />
+          <ScalarProperty Name="sotinchi" ColumnName="sotinchi" />
+          <ScalarProperty Name="sotietlithuyet" ColumnName="sotietlithuyet" />
+          <ScalarProperty Name="sotietthuchanh" ColumnName="sotietthuchanh" />
+          <ScalarProperty Name="trangthai" ColumnName="trangthai" />
+          <ScalarProperty Name="mamonhoc" ColumnName="mamonhoc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="nguoidungs">
+      <EntityTypeMapping TypeName="PBL3Model.nguoidung">
+        <MappingFragment StoreEntitySet="nguoidung">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="hoten" ColumnName="hoten" />
+          <ScalarProperty Name="gioitinh" ColumnName="gioitinh" />
+          <ScalarProperty Name="ngaysinh" ColumnName="ngaysinh" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+          <ScalarProperty Name="ngaythamgia" ColumnName="ngaythamgia" />
+          <ScalarProperty Name="matkhau" ColumnName="matkhau" />
+          <ScalarProperty Name="trangthai" ColumnName="trangthai" />
+          <ScalarProperty Name="sodienthoai" ColumnName="sodienthoai" />
+          <ScalarProperty Name="token" ColumnName="token" />
+          <ScalarProperty Name="otp" ColumnName="otp" />
+          <ScalarProperty Name="manhomquyen" ColumnName="manhomquyen" />
+          <ScalarProperty Name="manguoidung" ColumnName="manguoidung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="nhoms">
+      <EntityTypeMapping TypeName="PBL3Model.nhom">
+        <MappingFragment StoreEntitySet="nhom">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="tennhom" ColumnName="tennhom" />
+          <ScalarProperty Name="mamoi" ColumnName="mamoi" />
+          <ScalarProperty Name="siso" ColumnName="siso" />
+          <ScalarProperty Name="ghichu" ColumnName="ghichu" />
+          <ScalarProperty Name="namhoc" ColumnName="namhoc" />
+          <ScalarProperty Name="hocky" ColumnName="hocky" />
+          <ScalarProperty Name="trangthai" ColumnName="trangthai" />
+          <ScalarProperty Name="hienthi" ColumnName="hienthi" />
+          <ScalarProperty Name="giangvien" ColumnName="giangvien" />
+          <ScalarProperty Name="mamonhoc" ColumnName="mamonhoc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="nhomquyens">
+      <EntityTypeMapping TypeName="PBL3Model.nhomquyen">
+        <MappingFragment StoreEntitySet="nhomquyen">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="tennhomquyen" ColumnName="tennhomquyen" />
+          <ScalarProperty Name="trangthai" ColumnName="trangthai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="phancongs">
+      <EntityTypeMapping TypeName="PBL3Model.phancong">
+        <MappingFragment StoreEntitySet="phancong">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="mamonhoc" ColumnName="mamonhoc" />
+          <ScalarProperty Name="manguoidung" ColumnName="manguoidung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="thongbaos">
+      <EntityTypeMapping TypeName="PBL3Model.thongbao">
+        <MappingFragment StoreEntitySet="thongbao">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="noidung" ColumnName="noidung" />
+          <ScalarProperty Name="thoigiantao" ColumnName="thoigiantao" />
+          <ScalarProperty Name="nguoitao" ColumnName="nguoitao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tralois">
+      <EntityTypeMapping TypeName="PBL3Model.traloi">
+        <MappingFragment StoreEntitySet="traloi">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="macauhoi" ColumnName="macauhoi" />
+          <ScalarProperty Name="noidung" ColumnName="noidung" />
+          <ScalarProperty Name="ladapan" ColumnName="ladapan" />
+          <ScalarProperty Name="trangthai" ColumnName="trangthai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chitietnhoms">
+      <EntityTypeMapping TypeName="PBL3Model.chitietnhom">
+        <MappingFragment StoreEntitySet="chitietnhom">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="manhom" ColumnName="manhom" />
+          <ScalarProperty Name="manguoidung" ColumnName="manguoidung" />
+          <ScalarProperty Name="hienthi" ColumnName="hienthi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

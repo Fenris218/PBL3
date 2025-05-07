@@ -1,0 +1,238 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\PBL\\PBL\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|e:\\pbl\\pbl\\pbl\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|E:\\PBL\\PBL\\pbl\\models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|e:\\pbl\\pbl\\pbl\\areas\\admin\\controllers\\dethicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\areas\\admin\\controllers\\dethicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|e:\\pbl\\pbl\\pbl\\areas\\admin\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\areas\\admin\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|e:\\pbl\\pbl\\pbl\\areas\\admin\\views\\nhom\\danh_sach.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\areas\\admin\\views\\nhom\\danh_sach.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|E:\\PBL\\PBL\\pbl\\areas\\admin\\controllers\\nhomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\areas\\admin\\controllers\\nhomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|E:\\PBL\\PBL\\pbl\\areas\\admin\\views\\nhom\\chi_tiet_nhom.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\areas\\admin\\views\\nhom\\chi_tiet_nhom.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|E:\\PBL\\PBL\\pbl\\areas\\admin\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\areas\\admin\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|E:\\PBL\\PBL\\pbl\\areas\\admin\\views\\authentication\\recover.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\areas\\admin\\views\\authentication\\recover.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|E:\\PBL\\PBL\\pbl\\areas\\admin\\views\\authentication\\resetpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\areas\\admin\\views\\authentication\\resetpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|E:\\PBL\\PBL\\pbl\\areas\\admin\\views\\authentication\\otp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\areas\\admin\\views\\authentication\\otp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|E:\\PBL\\PBL\\pbl\\areas\\admin\\views\\authentication\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6B17E416-B6E0-41C7-A5ED-89E3F9A99D0B}|PBL\\PBL.csproj|solutionrelative:pbl\\areas\\admin\\views\\authentication\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 807,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Web.config",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Web.config",
+              "RelativeDocumentMoniker": "PBL\\Web.config",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Web.config",
+              "RelativeToolTip": "PBL\\Web.config",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAQwD4AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-05-07T02:39:47.999Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DeThiController.cs",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Controllers\\DeThiController.cs",
+              "RelativeDocumentMoniker": "PBL\\Areas\\Admin\\Controllers\\DeThiController.cs",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Controllers\\DeThiController.cs",
+              "RelativeToolTip": "PBL\\Areas\\Admin\\Controllers\\DeThiController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T02:25:18.824Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BaseController.cs",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Controllers\\BaseController.cs",
+              "RelativeDocumentMoniker": "PBL\\Areas\\Admin\\Controllers\\BaseController.cs",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Controllers\\BaseController.cs",
+              "RelativeToolTip": "PBL\\Areas\\Admin\\Controllers\\BaseController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T02:25:14.647Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "danh_sach.cshtml",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Nhom\\danh_sach.cshtml",
+              "RelativeDocumentMoniker": "PBL\\Areas\\Admin\\Views\\Nhom\\danh_sach.cshtml",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Nhom\\danh_sach.cshtml",
+              "RelativeToolTip": "PBL\\Areas\\Admin\\Views\\Nhom\\danh_sach.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-07T00:15:19.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NhomController.cs",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Controllers\\NhomController.cs",
+              "RelativeDocumentMoniker": "PBL\\Areas\\Admin\\Controllers\\NhomController.cs",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Controllers\\NhomController.cs",
+              "RelativeToolTip": "PBL\\Areas\\Admin\\Controllers\\NhomController.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T00:14:58.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "chi_tiet_nhom.cshtml",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Nhom\\chi_tiet_nhom.cshtml",
+              "RelativeDocumentMoniker": "PBL\\Areas\\Admin\\Views\\Nhom\\chi_tiet_nhom.cshtml",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Nhom\\chi_tiet_nhom.cshtml",
+              "RelativeToolTip": "PBL\\Areas\\Admin\\Views\\Nhom\\chi_tiet_nhom.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-07T00:13:54.335Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ResetPassword.cshtml",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Authentication\\ResetPassword.cshtml",
+              "RelativeDocumentMoniker": "PBL\\Areas\\Admin\\Views\\Authentication\\ResetPassword.cshtml",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Authentication\\ResetPassword.cshtml",
+              "RelativeToolTip": "PBL\\Areas\\Admin\\Views\\Authentication\\ResetPassword.cshtml",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowCQAAABiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-02T12:33:00.731Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Recover.cshtml",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Authentication\\Recover.cshtml",
+              "RelativeDocumentMoniker": "PBL\\Areas\\Admin\\Views\\Authentication\\Recover.cshtml",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Authentication\\Recover.cshtml",
+              "RelativeToolTip": "PBL\\Areas\\Admin\\Views\\Authentication\\Recover.cshtml",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAUwBkAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-02T12:32:13.286Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "OTP.cshtml",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Authentication\\OTP.cshtml",
+              "RelativeDocumentMoniker": "PBL\\Areas\\Admin\\Views\\Authentication\\OTP.cshtml",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Authentication\\OTP.cshtml",
+              "RelativeToolTip": "PBL\\Areas\\Admin\\Views\\Authentication\\OTP.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-02T12:28:28.649Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Authentication\\Login.cshtml",
+              "RelativeDocumentMoniker": "PBL\\Areas\\Admin\\Views\\Authentication\\Login.cshtml",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Views\\Authentication\\Login.cshtml",
+              "RelativeToolTip": "PBL\\Areas\\Admin\\Views\\Authentication\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-02T12:28:27.029Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthenticationController.cs",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Controllers\\AuthenticationController.cs",
+              "RelativeDocumentMoniker": "PBL\\Areas\\Admin\\Controllers\\AuthenticationController.cs",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Areas\\Admin\\Controllers\\AuthenticationController.cs",
+              "RelativeToolTip": "PBL\\Areas\\Admin\\Controllers\\AuthenticationController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwJsAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-02T12:28:13Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Model1.edmx [Diagram1]",
+              "DocumentMoniker": "E:\\PBL\\PBL\\PBL\\Models\\Model1.edmx",
+              "RelativeDocumentMoniker": "PBL\\Models\\Model1.edmx",
+              "ToolTip": "E:\\PBL\\PBL\\PBL\\Models\\Model1.edmx [Diagram1]",
+              "RelativeToolTip": "PBL\\Models\\Model1.edmx [Diagram1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001116|",
+              "WhenOpened": "2025-05-02T07:36:51.567Z",
+              "EditorCaption": " [Diagram1]"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 807,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
